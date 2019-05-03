@@ -1,0 +1,228 @@
+doctype html
+head
+    meta(charset='utf-8')
+    meta(http-equiv='x-ua-compatible' content='ie=edge')
+    title Shards Dashboard Lite - Free Bootstrap Admin Template &ndash; DesignRevision
+    meta(name='description' content='A high-quality & free Bootstrap admin dashboard template pack that comes with lots of templates and components.')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous')
+    link#main-stylesheet(rel='stylesheet' data-version='1.1.0' href='styles/shards-dashboards.1.1.0.min.css')
+    link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
+    script(async='' defer='' src='https://buttons.github.io/buttons.js')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css')
+.container-fluid
+    .row
+        // Main Sidebar
+        aside.main-sidebar.col-12.col-md-3.col-lg-2.px-0
+            .main-navbar
+                nav.navbar.align-items-stretch.navbar-light.bg-white.flex-md-nowrap.border-bottom.p-0
+                    a.navbar-brand.w-100.mr-0(href='#' style='line-height: 25px;')
+                        .d-table.m-auto
+                            img#main-logo.d-inline-block.align-top.mr-1(style='max-width: 25px;' src='images/shards-dashboards-logo.svg' alt='Shards Dashboard')
+                            span.d-none.d-md-inline.ml-1 Shards Dashboard
+                    a.toggle-sidebar.d-sm-inline.d-md-none.d-lg-none
+                        i.material-icons &#xE5C4;
+            form.main-sidebar__search.w-100.border-right.d-sm-flex.d-md-none.d-lg-none(action='#')
+                .input-group.input-group-seamless.ml-3
+                    .input-group-prepend
+                        .input-group-text
+                            i.fas.fa-search
+                    input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
+            .nav-wrapper
+                ul.nav.flex-column
+                    li.nav-item
+                        a.nav-link(href='index.html')
+                            i.material-icons edit
+                            span Blog Dashboard
+                    li.nav-item
+                        a.nav-link(href='components-blog-posts.html')
+                            i.material-icons vertical_split
+                            span Blog Posts
+                    li.nav-item
+                        a.nav-link.active(href='add-new-post.html')
+                            i.material-icons note_add
+                            span Add New Post
+                    li.nav-item
+                        a.nav-link(href='form-components.html')
+                            i.material-icons view_module
+                            span Forms &amp; Components
+                    li.nav-item
+                        a.nav-link(href='tables.html')
+                            i.material-icons table_chart
+                            span Tables
+                    li.nav-item
+                        a.nav-link(href='user-profile-lite.html')
+                            i.material-icons person
+                            span User Profile
+                    li.nav-item
+                        a.nav-link(href='errors.html')
+                            i.material-icons error
+                            span Errors
+        // End Main Sidebar
+        main.main-content.col-lg-10.col-md-9.col-sm-12.p-0.offset-lg-2.offset-md-3
+            .main-navbar.sticky-top.bg-white
+                // Main Navbar
+                nav.navbar.align-items-stretch.navbar-light.flex-md-nowrap.p-0
+                    form.main-navbar__search.w-100.d-none.d-md-flex.d-lg-flex(action='#')
+                        .input-group.input-group-seamless.ml-3
+                            .input-group-prepend
+                                .input-group-text
+                                    i.fas.fa-search
+                            input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
+                    ul.navbar-nav.border-left.flex-row
+                        li.nav-item.border-right.dropdown.notifications
+                            a#dropdownMenuLink.nav-link.nav-link-icon.text-center(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                .nav-link-icon__wrapper
+                                    i.material-icons &#xE7F4;
+                                    span.badge.badge-pill.badge-danger 2
+                            .dropdown-menu.dropdown-menu-small(aria-labelledby='dropdownMenuLink')
+                                a.dropdown-item(href='#')
+                                    .notification__icon-wrapper
+                                        .notification__icon
+                                            i.material-icons &#xE6E1;
+                                    .notification__content
+                                        span.notification__category Analytics
+                                        p
+                                            | Your website&rsquo;s active users count increased by
+                                            span.text-success.text-semibold 28%
+                                            |  in the last week. Great job!
+                                a.dropdown-item(href='#')
+                                    .notification__icon-wrapper
+                                        .notification__icon
+                                            i.material-icons &#xE8D1;
+                                    .notification__content
+                                        span.notification__category Sales
+                                        p
+                                            | Last week your store&rsquo;s sales count decreased by
+                                            span.text-danger.text-semibold 5.52%
+                                            | . It could have been worse!
+                                a.dropdown-item.notification__all.text-center(href='#')  View all Notifications
+                        li.nav-item.dropdown
+                            a.nav-link.dropdown-toggle.text-nowrap.px-3(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false')
+                                img.user-avatar.rounded-circle.mr-2(src='images/avatars/0.jpg' alt='User Avatar')
+                                span.d-none.d-md-inline-block Sierra Brooks
+                            .dropdown-menu.dropdown-menu-small
+                                a.dropdown-item(href='user-profile-lite.html')
+                                    i.material-icons &#xE7FD;
+                                    |  Profile
+                                a.dropdown-item(href='components-blog-posts.html')
+                                    i.material-icons vertical_split
+                                    |  Blog Posts
+                                a.dropdown-item(href='add-new-post.html')
+                                    i.material-icons note_add
+                                    |  Add New Post
+                                .dropdown-divider
+                                a.dropdown-item.text-danger(href='#')
+                                    i.material-icons.text-danger &#xE879;
+                                    |  Logout
+                    nav.nav
+                        a.nav-link.nav-link-icon.toggle-sidebar.d-md-inline.d-lg-none.text-center.border-left(href='#' data-toggle='collapse' data-target='.header-navbar' aria-expanded='false' aria-controls='header-navbar')
+                            i.material-icons &#xE5D2;
+            // / .main-navbar
+            .main-content-container.container-fluid.px-4
+                // Page Header
+                .page-header.row.no-gutters.py-4
+                    .col-12.col-sm-4.text-center.text-sm-left.mb-0
+                        span.text-uppercase.page-subtitle Blog Posts
+                        h3.page-title Add New Post
+                // End Page Header
+                .row
+                    .col-lg-9.col-md-12
+                        // Add New Post Form
+                        .card.card-small.mb-3
+                            .card-body
+                                form.add-new-post
+                                    input.form-control.form-control-lg.mb-3(type='text' placeholder='Your Post Title')
+                                    #editor-container.add-new-post__editor.mb-1
+                        // / Add New Post Form
+                    .col-lg-3.col-md-12
+                        // Post Overview
+                        .card.card-small.mb-3
+                            .card-header.border-bottom
+                                h6.m-0 Actions
+                            .card-body.p-0
+                                ul.list-group.list-group-flush
+                                    li.list-group-item.p-3
+                                        span.d-flex.mb-2
+                                            i.material-icons.mr-1 flag
+                                            strong.mr-1 Status:
+                                            |  Draft
+                                            a.ml-auto(href='#') Edit
+                                        span.d-flex.mb-2
+                                            i.material-icons.mr-1 visibility
+                                            strong.mr-1 Visibility:
+                                            strong.text-success Public
+                                            a.ml-auto(href='#') Edit
+                                        span.d-flex.mb-2
+                                            i.material-icons.mr-1 calendar_today
+                                            strong.mr-1 Schedule:
+                                            |  Now
+                                            a.ml-auto(href='#') Edit
+                                        span.d-flex
+                                            i.material-icons.mr-1 score
+                                            strong.mr-1 Readability:
+                                            strong.text-warning Ok
+                                    li.list-group-item.d-flex.px-3
+                                        button.btn.btn-sm.btn-outline-accent
+                                            i.material-icons save
+                                            |  Save Draft
+                                        button.btn.btn-sm.btn-accent.ml-auto
+                                            i.material-icons file_copy
+                                            |  Publish
+                        // / Post Overview
+                        // Post Overview
+                        .card.card-small.mb-3
+                            .card-header.border-bottom
+                                h6.m-0 Categories
+                            .card-body.p-0
+                                ul.list-group.list-group-flush
+                                    li.list-group-item.px-3.pb-2
+                                        .custom-control.custom-checkbox.mb-1
+                                            input#category1.custom-control-input(type='checkbox' checked='')
+                                            label.custom-control-label(for='category1') Uncategorized
+                                        .custom-control.custom-checkbox.mb-1
+                                            input#category2.custom-control-input(type='checkbox' checked='')
+                                            label.custom-control-label(for='category2') Design
+                                        .custom-control.custom-checkbox.mb-1
+                                            input#category3.custom-control-input(type='checkbox')
+                                            label.custom-control-label(for='category3') Development
+                                        .custom-control.custom-checkbox.mb-1
+                                            input#category4.custom-control-input(type='checkbox')
+                                            label.custom-control-label(for='category4') Writing
+                                        .custom-control.custom-checkbox.mb-1
+                                            input#category5.custom-control-input(type='checkbox')
+                                            label.custom-control-label(for='category5') Books
+                                    li.list-group-item.d-flex.px-3
+                                        .input-group
+                                            input.form-control(type='text' placeholder='New category' aria-label='Add new category' aria-describedby='basic-addon2')
+                                            .input-group-append
+                                                button.btn.btn-white.px-2(type='button')
+                                                    i.material-icons add
+                        // / Post Overview
+            footer.main-footer.d-flex.p-2.px-3.bg-white.border-top
+                ul.nav
+                    li.nav-item
+                        a.nav-link(href='#') Home
+                    li.nav-item
+                        a.nav-link(href='#') Services
+                    li.nav-item
+                        a.nav-link(href='#') About
+                    li.nav-item
+                        a.nav-link(href='#') Products
+                    li.nav-item
+                        a.nav-link(href='#') Blog
+                span.copyright.ml-auto.my-auto.mr-2
+                    | Copyright &copy; 2018
+                    a(href='https://designrevision.com' rel='nofollow') DesignRevision
+script(src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')
+script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js')
+script(src='https://unpkg.com/shards-ui@latest/dist/js/shards.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js')
+script(src='scripts/extras.1.1.0.min.js')
+script(src='scripts/shards-dashboards.1.1.0.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.min.js')
+script(src='scripts/app/app-blog-new-post.1.1.0.js')
