@@ -25,7 +25,7 @@ var session = require('express-session');
 var morgan = require('morgan');
 // set morgan to log info about our requests for development use.
 app.use(morgan('dev'));
-
+var UserLogin = require('./database/models/UserLogin');
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.urlencoded({extended: true}));
 // initialize express-session to allow us track the logged-in user across sessions.
@@ -63,27 +63,27 @@ var sessionChecker = (req, res, next) => {
 app.get('/', sessionChecker, (req, res) => {
   res.redirect('/login');
 })
-// route for user signup
-app.route('/signup')
-    .get((req, res) => {
-      res.render(__dirname + '/views/signup.pug');
-    })
-    .post((req, res) => {
-      User.create({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        role: req.body.role,
-        worker_id: req.body.wid
-      })
-          .then(user => {
-            req.session.user = user.dataValues;
-            res.redirect('/signup');
-          })
-          .catch(error => {
-            res.redirect('/signup');
-          });
-    });
+// // route for user signup
+// app.route('/signup')
+//     .get((req, res) => {
+//       res.render(__dirname + '/views/signup.pug');
+//     })
+//     .post((req, res) => {
+//       UserLogin.create({
+//         username: req.body.username,
+//         email: req.body.email,
+//         password: req.body.password,
+//         role: req.body.role,
+//         worker_id: req.body.wid
+//       })
+//           .then(user => {
+//             req.session.user = user.dataValues;
+//             res.redirect('/signup');
+//           })
+//           .catch(error => {
+//             res.redirect('/signup');
+//           });
+//     });
 
 
 // route for user Login
@@ -95,19 +95,20 @@ app.route('/login')
       var username = req.body.username,
           password = req.body.password;
 
-      User.findOne({where: {username: username}}).then(function (user) {
+      UserLogin.findOne({where: {Login: username}}).then(function (user) {
         if (!user) {
           res.redirect('/login');
-        } else if (user.dataValues.password!==password) {
+        } else if (user.dataValues.Password!==password) {
           res.redirect('/login');
         } else {
-          req.session.user = user.dataValues;
-          if (user.dataValues.role === 'admin') {
-            res.redirect('/signup')
-          }
-          if (user.dataValues.role === 'administrator') {
+          req.session.user = user.dataValues.UserFK;
+          // if (user.dataValues.role === 'admin') {
+          //   res.redirect('/signup')
+          // }
+          // if (user.dataValues.role === 'administrator') {
             res.redirect('/index')
-          }
+          //}
+
           // if (user.dataValues.role === 'worker') {
           //     res.redirect('/zadForWorker?id=' + user.dataValues.worker_id)
           // }

@@ -155,29 +155,54 @@ head
                                                         .col-sm-12.col-md-4
                                                             strong.text-muted.d-block.mb-2 Номер
                                                                 .form-group
-                                                                    input.form-control(type='text' name="inputNum")
+                                                                    if(document.dataValues.Number == null)
+                                                                        input.form-control(name="inputNum" type="text" required=true)
+                                                                    else
+                                                                        input.form-control(name="inputNum" type="text" ,value = document.dataValues.Number)
+                                                                    //input.form-control(type='text' name="inputNum")
                                                         .col-sm-12.col-md-4
                                                             strong.text-muted.d-block.mb-2 Дата
                                                                 .form-group
-                                                                    input.form-control(type='date' name="inputDate")
+                                                                    if(document.dataValues.Date == null)
+                                                                        input.form-control(name="inputDate" type="text" required=true)
+                                                                    else
+                                                                        input.form-control(name="inputDate" type="text" ,value = formatDate(document.dataValues.Date))
+                                                                    //input.form-control(type='date' name="inputDate")
                                                         .col-sm-12
                                                             strong.text-muted.d-block.mb-2 Тип
                                                                 .form-group
-                                                                    input#ei.form-control(type='text' list='types' name="inputType")
-                                                                    datalist#types
-                                                                        -for (let i = 0; i < type.length; i++)
-                                                                            option(value=type[i].dataValues.Name)
+                                                                    if(document.dataValues.TypeFK == null)
+                                                                        input#ei.form-control(type='text' list='types' name="inputType")
+                                                                        datalist#types
+                                                                            -for (let i = 0; i < type.length; i++)
+                                                                                option(value=type[i].dataValues.Name)
+                                                                    else
+                                                                        input#ei.form-control(type='text' list='types' name="inputType" value=document.dataValues.DocType.dataValues.Name)
+                                                                        datalist#types
+                                                                            -for (let i = 0; i < type.length; i++)
+                                                                                option(value=type[i].dataValues.Name)
+                                                                    //input#ei.form-control(type='text' list='types' name="inputType")
+                                                                    //datalist#types
+                                                                    //    -for (let i = 0; i < type.length; i++)
+                                                                    //        option(value=type[i].dataValues.Name)
                                             .col-sm-12
                                                 strong.text-muted.d-block.mb-2 Название
                                                     .form-group
-                                                        input.form-control(type='text' name="inputName" )
+                                                        if(document.dataValues.Name == null)
+                                                            input.form-control(name="inputName" type="text" required=true)
+                                                        else
+                                                            input.form-control(name="inputName" type="text" ,value = fdocument.dataValues.Name)
+                                                        //input.form-control(type='text' name="inputName" )
                                             .col-sm-12
 
                                                 strong.text-muted.d-block.mb-2 Текст
                                                     .form-group
                                                         //input.form-control(type='text' name="inputBD")
-                                                        textarea.form-control(name="inputText" rows=10 )
-
+                                                        if(document.dataValues.text == null)
+                                                            textarea.form-control(name="inputText" rows=10 )
+                                                        else
+                                                            textarea.form-control(name="inputText" rows=10 ) #{document.dataValues.text}
+                                                        //textarea.form-control(name="inputText" rows=10 )
                                             .col-lg-12.mb-4
                                                 .row
                                                     .col
