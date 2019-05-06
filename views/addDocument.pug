@@ -12,6 +12,35 @@ head
     link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
     script(async='' defer='' src='https://buttons.github.io/buttons.js')
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.6/quill.snow.css')
+    mixin rowsTable(id, name, numb)
+        tr
+            td #{id}
+            td #{name}
+            td #{numb}
+
+    #myModal3.modal.fade(role='dialog')
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    h4.modal-title Добавление подписанта
+                    button.close(type='button', data-dismiss='modal') ×
+                .modal-body
+                    ul.list-group.list-group-flush
+                        form(action="/addDocument/addSigner?ID=" + document.dataValues.id, method="post" class="form" id='addSi' enctype="application/json")
+                            li.list-group-item.p-3
+                                .row
+                                    .col-sm-12
+                                        strong.text-muted.d-block.mb-2 ФИО
+                                            .form-group
+                                                input.form-control(type='text' list='users' name="inputName")
+                                                datalist#users
+                                                    -for (let i = 0; i < users.length; i++)
+                                                        option(value=users[i].dataValues.FirstName + " "+ users[i].dataValues.SecondName)
+                                    .col-lg-12.mb-4
+                                        .row
+                                            .col
+                                                a.nav-link(href='addDocument')
+                                                    button.btn.btn-primary.btn-lg.btn-block(id='AddSigner' type="submit") Добавить
 .container-fluid
     .row
         // Main Sidebar
@@ -117,7 +146,7 @@ head
                         // Add New Post Form
                         .card.card-small.mb-3
                             .card-body
-                                form.add-new-post(action="/addDocument/add", method="post" class="form" id='addClient' enctype="application/json")
+                                form.add-new-post(action="/addDocument/add?id="+document.dataValues.id, method="post" class="form" id='addClient' enctype="application/json")
                                     li.list-group-item.p-3
                                         .row
                                             .col-sm-12
@@ -134,10 +163,10 @@ head
                                                         .col-sm-12
                                                             strong.text-muted.d-block.mb-2 Тип
                                                                 .form-group
-                                                                    input#ei.form-control(type='text' list='types' name="inputType" required=true)
+                                                                    input#ei.form-control(type='text' list='types' name="inputType")
                                                                     datalist#types
-                                                                        -for (let i = 0; i < ediz.length; i++)
-                                                                        option(value=ediz[i].dataValues.Name)
+                                                                        -for (let i = 0; i < type.length; i++)
+                                                                            option(value=type[i].dataValues.Name)
                                             .col-sm-12
                                                 strong.text-muted.d-block.mb-2 Название
                                                     .form-group
@@ -148,6 +177,30 @@ head
                                                     .form-group
                                                         //input.form-control(type='text' name="inputBD")
                                                         textarea.form-control(name="inputText" rows=10 )
+
+                                            .col-lg-12.mb-4
+                                                .row
+                                                    .col
+                                                        .card.card-small.mb-4
+                                                            .card-header.border-bottom
+                                                                .row
+                                                                    .col-sm-12.col-md-11
+                                                                        h6.m-0 Подписанты
+                                                                    .col-sm-12.col-md-1
+                                                                        button.mb-2.btn.btn-sm.btn-primary.mr-1(id="createNewSigner" type="submit", data-toggle='modal', data-target='#myModal3') +
+                                                            .card-body.p-0.pb-3.text-center
+                                                                table#tab1.table.mb-0
+                                                                    thead.bg-light.text-primary
+                                                                        tr
+                                                                            th.border-0(scope='col') #
+                                                                            th.border-0(scope='col') Имя
+                                                                            th.border-0(scope='col') Фамилия
+                                                                    tbody
+                                                                        if(signers !== undefined)
+                                                                             -for (let i = 0; i < signers.length; i++)
+                                                                                 +rowsTable(signers[i].dataValues.id,
+                                                                                     signers[i].User.dataValues.FirstName,
+                                                                                     signers[i].User.dataValues.SecondName)
                                             .col-lg-12.mb-4
                                                 .row
                                                     .col
