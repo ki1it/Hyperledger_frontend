@@ -2,7 +2,7 @@ doctype html
 head
     meta(charset='utf-8')
     meta(http-equiv='x-ua-compatible' content='ie=edge')
-    title Shards Dashboard Lite - Free Bootstrap Admin Template &ndash; DesignRevision
+    title АРМ Универ
     meta(name='description' content='A high-quality & free Bootstrap admin dashboard template pack that comes with lots of templates and components.')
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
     link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet')
@@ -26,40 +26,24 @@ head
                         i.material-icons &#xE5C4;
             form.main-sidebar__search.w-100.border-right.d-sm-flex.d-md-none.d-lg-none(action='#')
                 .input-group.input-group-seamless.ml-3
-                    .input-group-prepend
-                        .input-group-text
-                            i.fas.fa-search
-                    input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
+                //    .input-group-prepend
+                //        .input-group-text
+                //            i.fas.fa-search
+                //    input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
             .nav-wrapper
                 ul.nav.flex-column
                     li.nav-item
-                        a.nav-link(href='index.html')
-                            i.material-icons edit
-                            span Blog Dashboard
-                    li.nav-item
-                        a.nav-link(href='components-blog-posts.html')
-                            i.material-icons vertical_split
-                            span Blog Posts
-                    li.nav-item
-                        a.nav-link.active(href='add-new-post.html')
-                            i.material-icons note_add
-                            span Add New Post
-                    li.nav-item
-                        a.nav-link(href='form-components.html')
+                        a.nav-link.active(href='/')
                             i.material-icons view_module
-                            span Forms &amp; Components
+                            span Главная
                     li.nav-item
-                        a.nav-link(href='tables.html')
-                            i.material-icons table_chart
-                            span Tables
+                        a.nav-link(href='notofications')
+                            i.material-icons vertical_split
+                            span Документы на подпись
                     li.nav-item
-                        a.nav-link(href='user-profile-lite.html')
-                            i.material-icons person
-                            span User Profile
-                    li.nav-item
-                        a.nav-link(href='errors.html')
-                            i.material-icons error
-                            span Errors
+                        a.nav-link(href='addDocument')
+                            i.material-icons note_add
+                            span Создать документ
         // End Main Sidebar
         main.main-content.col-lg-10.col-md-9.col-sm-12.p-0.offset-lg-2.offset-md-3
             .main-navbar.sticky-top.bg-white
@@ -67,10 +51,10 @@ head
                 nav.navbar.align-items-stretch.navbar-light.flex-md-nowrap.p-0
                     form.main-navbar__search.w-100.d-none.d-md-flex.d-lg-flex(action='#')
                         .input-group.input-group-seamless.ml-3
-                            .input-group-prepend
-                                .input-group-text
-                                    i.fas.fa-search
-                            input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
+                            //.input-group-prepend
+                            //    .input-group-text
+                            //        i.fas.fa-search
+                            //input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
                     ul.navbar-nav.border-left.flex-row
                         li.nav-item.border-right.dropdown.notifications
                             a#dropdownMenuLink.nav-link.nav-link-icon.text-center(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
@@ -125,17 +109,50 @@ head
                 // Page Header
                 .page-header.row.no-gutters.py-4
                     .col-12.col-sm-4.text-center.text-sm-left.mb-0
-                        span.text-uppercase.page-subtitle Blog Posts
-                        h3.page-title Add New Post
+                        //span.text-uppercase.page-subtitle Blog Posts
+                        h3.page-title Добавление документа
                 // End Page Header
                 .row
                     .col-lg-9.col-md-12
                         // Add New Post Form
                         .card.card-small.mb-3
                             .card-body
-                                form.add-new-post
-                                    input.form-control.form-control-lg.mb-3(type='text' placeholder='Your Post Title')
-                                    #editor-container.add-new-post__editor.mb-1
+                                form.add-new-post(action="/addDocument/add", method="post" class="form" id='addClient' enctype="application/json")
+                                    li.list-group-item.p-3
+                                        .row
+                                            .col-sm-12
+                                                strong.text-muted.d-block.mb-2
+                                                    .row
+                                                        .col-sm-12.col-md-4
+                                                            strong.text-muted.d-block.mb-2 Номер
+                                                                .form-group
+                                                                    input.form-control(type='text' name="inputNum")
+                                                        .col-sm-12.col-md-4
+                                                            strong.text-muted.d-block.mb-2 Дата
+                                                                .form-group
+                                                                    input.form-control(type='date' name="inputDate")
+                                                        .col-sm-12
+                                                            strong.text-muted.d-block.mb-2 Тип
+                                                                .form-group
+                                                                    input#ei.form-control(type='text' list='types' name="inputType" required=true)
+                                                                    datalist#types
+                                                                        -for (let i = 0; i < ediz.length; i++)
+                                                                        option(value=ediz[i].dataValues.Name)
+                                            .col-sm-12
+                                                strong.text-muted.d-block.mb-2 Название
+                                                    .form-group
+                                                        input.form-control(type='text' name="inputName" )
+                                            .col-sm-12
+
+                                                strong.text-muted.d-block.mb-2 Текст
+                                                    .form-group
+                                                        //input.form-control(type='text' name="inputBD")
+                                                        textarea.form-control(name="inputText" rows=10 )
+                                            .col-lg-12.mb-4
+                                                .row
+                                                    .col
+                                                        a.nav-link(href='/')
+                                                            button.btn.btn-primary.btn-lg.btn-block(type="submit") Добавить
                         // / Add New Post Form
                     .col-lg-3.col-md-12
                         // Post Overview
@@ -180,23 +197,23 @@ head
                                 ul.list-group.list-group-flush
                                     li.list-group-item.px-3.pb-2
                                         .custom-control.custom-checkbox.mb-1
-                                            input#category1.custom-control-input(type='checkbox' checked='')
+                                            input#category1.custom-control-input(type='radio' checked='')
                                             label.custom-control-label(for='category1') Uncategorized
                                         .custom-control.custom-checkbox.mb-1
-                                            input#category2.custom-control-input(type='checkbox' checked='')
+                                            input#category2.custom-control-input(type='radio' checked='')
                                             label.custom-control-label(for='category2') Design
                                         .custom-control.custom-checkbox.mb-1
-                                            input#category3.custom-control-input(type='checkbox')
+                                            input#category3.custom-control-input(type='radio')
                                             label.custom-control-label(for='category3') Development
                                         .custom-control.custom-checkbox.mb-1
-                                            input#category4.custom-control-input(type='checkbox')
+                                            input#category4.custom-control-input(type='radio')
                                             label.custom-control-label(for='category4') Writing
                                         .custom-control.custom-checkbox.mb-1
-                                            input#category5.custom-control-input(type='checkbox')
+                                            input#category5.custom-control-input(type='date')
                                             label.custom-control-label(for='category5') Books
                                     li.list-group-item.d-flex.px-3
                                         .input-group
-                                            input.form-control(type='text' placeholder='New category' aria-label='Add new category' aria-describedby='basic-addon2')
+                                            input.form-control(type='date' placeholder='New category' aria-label='Add new category' aria-describedby='basic-addon2')
                                             .input-group-append
                                                 button.btn.btn-white.px-2(type='button')
                                                     i.material-icons add

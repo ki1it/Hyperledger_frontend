@@ -31,16 +31,16 @@ async function init () {
     // await Position.sync({force:true})
     // await SignedStatus.sync({force:true})
     // await DocType.sync({force:true})
-    // await Document.sync({force:true})
     // await User.sync({force:true})
+    // await Document.sync({force:true})
     // await DocSigners.sync({force:true})
 
 
     await Position.sync()
     await SignedStatus.sync()
     await DocType.sync()
-    await Document.sync()
     await User.sync()
+    await Document.sync()
     await DocSigners.sync()
 
 }
