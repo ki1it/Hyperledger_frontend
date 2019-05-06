@@ -11,14 +11,15 @@ const DocType = require('../database/models/DocType')
 router.get('/',async function(req, res, next) {
   let notif = await DocSigners.findAll({
     where:{
-      UserFK: req.session.user,
+      UserFK: req.session.user.UserFK,
       SignedFK: 4},
 
       include: [{model: User, as: 'User'},{model: Document,include:{model: DocType , as: 'DocType'}, as: 'Document'},],
     limit:5
   })
   res.render('index', {
-    notif: notif
+    notif: notif,
+    userid: req.session.user.UserFK
   });
 });
 

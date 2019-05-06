@@ -17,7 +17,7 @@ head
     link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
     script(async='' defer='' src='https://buttons.github.io/buttons.js')
     - var i=0;
-        mixin notif(id, Name, Type, Date, Author)
+        mixin notif(id, Name, Type, Date, Author, Text, DocId)
             .blog-comments__item.d-flex.p-3
                 .blog-comments__avatar.mr-3
                     img(src='images/avatars/1.jpg' alt='User avatar')
@@ -28,9 +28,10 @@ head
                         a.text-secondary(href='#')  #{' '+Type}
                         //span.text-muted &ndash; 2 дня назад
                     p.m-0.my-1.mb-2.text-muted #{Name}
+                    p.m-0.my-1.mb-2 #{Text}
                     .blog-comments__actions
                         .btn-group.btn-group-sm
-                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signDocs/signdoc', data: 'Userid=" + Userid + "','Docid=" + id + " })")
+                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/signdoc', data: {UserId:" + userid + ", DocId:" + DocId + "} })")
                                 span.text-success
                                     i.material-icons check
                                 |  Подписать
@@ -68,7 +69,7 @@ head
                             i.material-icons view_module
                             span Главная
                     li.nav-item
-                        a.nav-link(href='signDocs')
+                        a.nav-link(href='notofications')
                             i.material-icons vertical_split
                             span Документы на подпись
                     li.nav-item
@@ -136,23 +137,22 @@ head
                     .col-12.col-sm-4.text-center.text-sm-left.mb-0
                         //span.text-uppercase.page-subtitle Dashboard
                         h3.page-title Главная
-                .row
 
-                    .col-lg-5.col-md-12.col-sm-12.mb-4
-                        .card.card-small.blog-comments
-                            .card-header.border-bottom
-                                h6.m-0 Последние уведомления
-                            .card-body.p-0
-                                -for (let i = 0; i < notif.length; i++)
-                                    +notif(notif[i].dataValues.id,
-                                    notif[i].Document.dataValues.Name,
-                                    notif[i].Document.DocType.dataValues.Name,
-                                    notif[i].Document.dataValues.Date,
-                                    notif[i].User.dataValues.FirstName + " " + notif[i].User.dataValues.SecondName)
-                            .card-footer.border-top
-                                .row
-                                    .col.text-center.view-report
-                                        a.btn.btn-white(href='/notifications') Посмотрть все
+                .card.blog-comments
+                    .card-header.border-bottom
+                        h6.m-0 Последние уведомления
+                    .card-body.p-0
+                        -for (let i = 0; i < notif.length; i++)
+
+                        +notif(notif[i].dataValues.id,
+                            notif[i].Document.dataValues.Name,
+                            notif[i].Document.DocType.dataValues.Name,
+                            notif[i].Document.dataValues.Date,
+                            notif[i].User.dataValues.FirstName + " " + notif[i].User.dataValues.SecondName,
+                            notif[i].Document.dataValues.Text,
+                            notif[i].Document.dataValues.id)
+                    .card-footer.border-top
+
                     // End Discussions Component
                     // Top Referrals Component
                     //.col-lg-3.col-md-12.col-sm-12.mb-4

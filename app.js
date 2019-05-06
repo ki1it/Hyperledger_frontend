@@ -8,6 +8,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var addDocumentRouter = require('./routes/addDocument');
+var signDocsRouter = require('./routes/signDocs');
+
 var app = express();
 require('./database/lib/dbInit')
 // view engine setup
@@ -101,7 +103,7 @@ app.route('/login')
         } else if (user.dataValues.Password!==password) {
           res.redirect('/login');
         } else {
-          req.session.user = user.dataValues.UserFK;
+          req.session.user = user.dataValues;
           // if (user.dataValues.role === 'admin') {
           //   res.redirect('/signup')
           // }
@@ -141,6 +143,7 @@ app.get('/logout', (req, res) => {
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
 app.use('/addDocument', addDocumentRouter);
+app.use('/signDocs', signDocsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

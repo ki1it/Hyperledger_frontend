@@ -15,7 +15,7 @@ router.get('/',async function(req, res, next) {
 
     if (req.query.ID === "" || req.query.ID === undefined) {
         document = await Document.create({
-            AuthorFK: req.session.user
+            AuthorFK: req.session.user.UserFK
         })
             .catch((err) => {
                 console.log(err)
