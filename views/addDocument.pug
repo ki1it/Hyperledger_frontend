@@ -133,7 +133,7 @@ head
                                 img.user-avatar.rounded-circle.mr-2(src='images/avatars/0.jpg' alt='User Avatar')
                                 span.d-none.d-md-inline-block #{username}
                             .dropdown-menu.dropdown-menu-small
-                                a.dropdown-item.text-danger(href='#')
+                                a.dropdown-item.text-danger(href='/login' onclick="$.ajax({type: 'GET', url: '/logout'})")
                                     i.material-icons.text-danger &#xE879;
                                     |  Выйти
                     nav.nav
