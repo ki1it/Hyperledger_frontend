@@ -11,7 +11,7 @@ const DocType = require('../database/models/DocType')
 router.get('/',async function(req, res, next) {
     let user = await User.findAll({
         where:{
-            UserFK: req.session.user.UserFK,
+            id: req.session.user.UserFK,
             }
     })
     res.render('userProfile', {
