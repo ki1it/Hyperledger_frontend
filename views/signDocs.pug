@@ -65,17 +65,17 @@ head
             .nav-wrapper
                 ul.nav.flex-column
                     li.nav-item
-                        a.nav-link.active(href='/index')
+                        a.nav-link(href='/index')
                             i.material-icons view_module
                             span Главная
                     li.nav-item
-                        a.nav-link(href='notofications')
+                        a.nav-link.active(href='notofications')
                             i.material-icons vertical_split
                             span Документы на подпись
                     li.nav-item
                         a.nav-link(href='addDocument')
                             i.material-icons table_chart
-                            span  Посмотреть документы
+                            span Мои документы
                     li.nav-item
                         a.nav-link(href='addDocument')
                             i.material-icons note_add
@@ -89,7 +89,7 @@ head
                     //    i.material-icons table_chart
                     //    span Tables
                     li.nav-item
-                        a.nav-link(href='user-profile-lite.html')
+                        a.nav-link(href='userprofile')
                             i.material-icons person
                             span Мой профиль
                     //li.nav-item
@@ -130,7 +130,7 @@ head
 
                 .card.blog-comments
                     .card-header.border-bottom
-                        h6.m-0 Последние уведомления
+                        h6.m-0 Документы на подпись
                     .card-body.p-0
                         -for (let i = 0; i < notif.length; i++)
                             +notif(notif[i].dataValues.id,
