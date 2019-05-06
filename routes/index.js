@@ -14,10 +14,12 @@ router.get('/',async function(req, res, next) {
       UserFK: req.session.user,
       SignedFK: 4},
 
-      include: [{model: User, as: 'User'},{model: Document, as: 'Document'},],
+      include: [{model: User, as: 'User'},{model: Document,include:{model: DocType , as: 'DocType'}, as: 'Document'},],
     limit:5
   })
-  res.render('index', { title: 'Express' });
+  res.render('index', {
+    notif: notif
+  });
 });
 
 module.exports = router;
