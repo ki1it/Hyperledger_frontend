@@ -13,6 +13,9 @@ const  Document = sequelize.define('Document', {
     Text: {
         type: Sequelize.TEXT,
     },
+    TypeFK: {
+        type: Sequelize.INTEGER,
+    },
 });
 
 module.exports = Document;

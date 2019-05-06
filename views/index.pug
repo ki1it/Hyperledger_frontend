@@ -7,7 +7,7 @@ doctype html
 head
   meta(charset='utf-8')
   meta(http-equiv='x-ua-compatible' content='ie=edge')
-  title Shards Dashboard Lite - Free Bootstrap Admin Template &ndash; DesignRevision
+  title АРМ Универ
   meta(name='description' content='A high-quality & free Bootstrap admin dashboard template pack that comes with lots of templates and components.')
   meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
   link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet')
@@ -16,6 +16,33 @@ head
   link#main-stylesheet(rel='stylesheet' data-version='1.1.0' href='styles/shards-dashboards.1.1.0.min.css')
   link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
   script(async='' defer='' src='https://buttons.github.io/buttons.js')
+  - var i=0;
+    mixin notif(id, Name, Type, Date, Author)
+      .blog-comments__item.d-flex.p-3
+        .blog-comments__avatar.mr-3
+          img(src='images/avatars/1.jpg' alt='User avatar')
+        .blog-comments__content
+          .blog-comments__meta.text-muted
+            a.text-secondary(href='#') #{Author}
+            |  создал
+            a.text-secondary(href='#') #{Type}
+            //span.text-muted &ndash; 2 дня назад
+          p.m-0.my-1.mb-2.text-muted #{Name}
+          .blog-comments__actions
+            .btn-group.btn-group-sm
+              button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdoc', data: 'Userid=" + Userid + "','Docid="+id+" })")
+                span.text-success
+                  i.material-icons check
+                |  Подписать
+              button.btn.btn-white(type='button')
+                span.text-danger
+                  i.material-icons clear
+                |  Отклонить
+              button.btn.btn-white(type='button')
+                span.text-light
+                  i.material-icons more_vert
+                |  Оставить комментарий
+
 .container-fluid
   .row
     // Main Sidebar
@@ -37,15 +64,15 @@ head
       .nav-wrapper
         ul.nav.flex-column
           li.nav-item
-            a.nav-link.active(href='index.html')
+            a.nav-link.active(href='/')
               i.material-icons view_module
               span Главная
           li.nav-item
-            a.nav-link(href='components-blog-posts.html')
+            a.nav-link(href='notofications')
               i.material-icons vertical_split
               span Документы на подпись
           li.nav-item
-            a.nav-link(href='add-new-post.html')
+            a.nav-link(href='addDocument')
               i.material-icons note_add
               span Создать документ
           //li.nav-item
@@ -76,33 +103,7 @@ head
               //    i.fas.fa-search
               //input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
           ul.navbar-nav.border-left.flex-row
-            //li.nav-item.border-right.dropdown.notifications
-            //  a#dropdownMenuLink.nav-link.nav-link-icon.text-center(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-            //    .nav-link-icon__wrapper
-            //      i.material-icons &#xE7F4;
-            //      span.badge.badge-pill.badge-danger 2
-            //  .dropdown-menu.dropdown-menu-small(aria-labelledby='dropdownMenuLink')
-            //    a.dropdown-item(href='#')
-            //      .notification__icon-wrapper
-            //        .notification__icon
-            //          i.material-icons &#xE6E1;
-            //      .notification__content
-            //        span.notification__category Analytics
-            //        p
-            //          | Your website&rsquo;s active users count increased by
-            //          span.text-success.text-semibold 28%
-            //          |  in the last week. Great job!
-            //    a.dropdown-item(href='#')
-            //      .notification__icon-wrapper
-            //        .notification__icon
-            //          i.material-icons &#xE8D1;
-            //      .notification__content
-            //        span.notification__category Sales
-            //        p
-            //          | Last week your store&rsquo;s sales count decreased by
-            //          span.text-danger.text-semibold 5.52%
-            //          | . It could have been worse!
-            //    a.dropdown-item.notification__all.text-center(href='#')  View all Notifications
+
             li.nav-item.dropdown
               a.nav-link.dropdown-toggle.text-nowrap.px-3(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false')
                 img.user-avatar.rounded-circle.mr-2(src='images/avatars/0.jpg' alt='User Avatar')
@@ -129,197 +130,26 @@ head
         // Page Header
         .page-header.row.no-gutters.py-4
           .col-12.col-sm-4.text-center.text-sm-left.mb-0
-            span.text-uppercase.page-subtitle Dashboard
-            h3.page-title Blog Overview
-        // End Page Header
-        // Small Stats Blocks
-        //.row
-        //  .col-lg.col-md-6.col-sm-6.mb-4
-        //    .stats-small.stats-small--1.card.card-small
-        //      .card-body.p-0.d-flex
-        //        .d-flex.flex-column.m-auto
-        //          .stats-small__data.text-center
-        //            span.stats-small__label.text-uppercase Posts
-        //            h6.stats-small__value.count.my-3 2,390
-        //          .stats-small__data
-        //            span.stats-small__percentage.stats-small__percentage--increase 4.7%
-        //        canvas.blog-overview-stats-small-1(height='120')
-        //  .col-lg.col-md-6.col-sm-6.mb-4
-        //    .stats-small.stats-small--1.card.card-small
-        //      .card-body.p-0.d-flex
-        //        .d-flex.flex-column.m-auto
-        //          .stats-small__data.text-center
-        //            span.stats-small__label.text-uppercase Pages
-        //            h6.stats-small__value.count.my-3 182
-        //          .stats-small__data
-        //            span.stats-small__percentage.stats-small__percentage--increase 12.4%
-        //        canvas.blog-overview-stats-small-2(height='120')
-        //  .col-lg.col-md-4.col-sm-6.mb-4
-        //    .stats-small.stats-small--1.card.card-small
-        //      .card-body.p-0.d-flex
-        //        .d-flex.flex-column.m-auto
-        //          .stats-small__data.text-center
-        //            span.stats-small__label.text-uppercase Comments
-        //            h6.stats-small__value.count.my-3 8,147
-        //          .stats-small__data
-        //            span.stats-small__percentage.stats-small__percentage--decrease 3.8%
-        //        canvas.blog-overview-stats-small-3(height='120')
-        //  .col-lg.col-md-4.col-sm-6.mb-4
-        //    .stats-small.stats-small--1.card.card-small
-        //      .card-body.p-0.d-flex
-        //        .d-flex.flex-column.m-auto
-        //          .stats-small__data.text-center
-        //            span.stats-small__label.text-uppercase Users
-        //            h6.stats-small__value.count.my-3 2,413
-        //          .stats-small__data
-        //            span.stats-small__percentage.stats-small__percentage--increase 12.4%
-        //        canvas.blog-overview-stats-small-4(height='120')
-        //  .col-lg.col-md-4.col-sm-12.mb-4
-        //    .stats-small.stats-small--1.card.card-small
-        //      .card-body.p-0.d-flex
-        //        .d-flex.flex-column.m-auto
-        //          .stats-small__data.text-center
-        //            span.stats-small__label.text-uppercase Subscribers
-        //            h6.stats-small__value.count.my-3 17,281
-        //          .stats-small__data
-        //            span.stats-small__percentage.stats-small__percentage--decrease 2.4%
-        //        canvas.blog-overview-stats-small-5(height='120')
-        // End Small Stats Blocks
+            //span.text-uppercase.page-subtitle Dashboard
+            h3.page-title Главная
         .row
-          // Users Stats
-          //.col-lg-8.col-md-12.col-sm-12.mb-4
-          //  .card.card-small
-          //    .card-header.border-bottom
-          //      h6.m-0 Users
-          //    .card-body.pt-0
-          //      .row.border-bottom.py-2.bg-light
-          //        .col-12.col-sm-6
-          //          #blog-overview-date-range.input-daterange.input-group.input-group-sm.my-auto.ml-auto.mr-auto.ml-sm-auto.mr-sm-0(style='max-width: 350px;')
-          //            input#blog-overview-date-range-1.input-sm.form-control(type='text' name='start' placeholder='Start Date')
-          //            input#blog-overview-date-range-2.input-sm.form-control(type='text' name='end' placeholder='End Date')
-          //            span.input-group-append
-          //              span.input-group-text
-          //                i.material-icons &#xE916;
-          //        .col-12.col-sm-6.d-flex.mb-2.mb-sm-0
-          //          button.btn.btn-sm.btn-white.ml-auto.mr-auto.ml-sm-auto.mr-sm-0.mt-3.mt-sm-0(type='button') View Full Report &rarr;
-          //      canvas.blog-overview-users(height='130' style='max-width: 100% !important;')
-          //// End Users Stats
-          // Users By Device Stats
-          //.col-lg-4.col-md-6.col-sm-12.mb-4
-          //  .card.card-small.h-100
-          //    .card-header.border-bottom
-          //      h6.m-0 Users by device
-          //    .card-body.d-flex.py-0
-          //      canvas.blog-users-by-device.m-auto(height='220')
-          //    .card-footer.border-top
-          //      .row
-          //        .col
-          //          select.custom-select.custom-select-sm(style='max-width: 130px;')
-          //            option(selected='') Last Week
-          //            option(value='1') Today
-          //            option(value='2') Last Month
-          //            option(value='3') Last Year
-          //        .col.text-right.view-report
-          //          a(href='#') Full report &rarr;
-          // End Users By Device Stats
-          // New Draft Component
-          //.col-lg-4.col-md-6.col-sm-12.mb-4
-          //  // Quick Post
-          //  .card.card-small.h-100
-          //    .card-header.border-bottom
-          //      h6.m-0 New Draft
-          //    .card-body.d-flex.flex-column
-          //      form.quick-post-form
-          //        .form-group
-          //          input#exampleInputEmail1.form-control(type='email' aria-describedby='emailHelp' placeholder='Brave New World')
-          //        .form-group
-          //          textarea.form-control(placeholder='Words can be like X-rays if you use them properly...')
-          //        .form-group.mb-0
-          //          button.btn.btn-accent(type='submit') Create Draft
-            // End Quick Post
-          // End New Draft Component
-          // Discussions Component
+
           .col-lg-5.col-md-12.col-sm-12.mb-4
             .card.card-small.blog-comments
               .card-header.border-bottom
                 h6.m-0 Последние уведомления
               .card-body.p-0
-                .blog-comments__item.d-flex.p-3
-                  .blog-comments__avatar.mr-3
-                    img(src='images/avatars/1.jpg' alt='User avatar')
-                  .blog-comments__content
-                    .blog-comments__meta.text-muted
-                      a.text-secondary(href='#') Семен Кантор
-                      |  создал
-                      a.text-secondary(href='#') Приказ об отчислении
-                      span.text-muted &ndash; 2 дня назад
-                    p.m-0.my-1.mb-2.text-muted Студенты ФИТ 3 курс
-                    .blog-comments__actions
-                      .btn-group.btn-group-sm
-                        button.btn.btn-white(type='button')
-                          span.text-success
-                            i.material-icons check
-                          |  Подписать
-                        button.btn.btn-white(type='button')
-                          span.text-danger
-                            i.material-icons clear
-                          |  Отклонить
-                        button.btn.btn-white(type='button')
-                          span.text-light
-                            i.material-icons more_vert
-                          |  Оставить комментарий
-                .blog-comments__item.d-flex.p-3
-                  .blog-comments__avatar.mr-3
-                    img(src='images/avatars/2.jpg' alt='User avatar')
-                  .blog-comments__content
-                    .blog-comments__meta.text-muted
-                      a.text-secondary(href='#') James Johnson
-                      |  on
-                      a.text-secondary(href='#') Hello World!
-                      span.text-muted &ndash; 4 days ago
-                    p.m-0.my-1.mb-2.text-muted After the avalanche, it took us a week to climb out. Now...
-                    .blog-comments__actions
-                      .btn-group.btn-group-sm
-                        button.btn.btn-white(type='button')
-                          span.text-success
-                            i.material-icons check
-                          |  Approve
-                        button.btn.btn-white(type='button')
-                          span.text-danger
-                            i.material-icons clear
-                          |  Reject
-                        button.btn.btn-white(type='button')
-                          span.text-light
-                            i.material-icons more_vert
-                          |  Edit
-                .blog-comments__item.d-flex.p-3
-                  .blog-comments__avatar.mr-3
-                    img(src='images/avatars/3.jpg' alt='User avatar')
-                  .blog-comments__content
-                    .blog-comments__meta.text-muted
-                      a.text-secondary(href='#') James Johnson
-                      |  on
-                      a.text-secondary(href='#') Hello World!
-                      span.text-muted &ndash; 5 days ago
-                    p.m-0.my-1.mb-2.text-muted My money&apos;s in that office, right? If she start giving me...
-                    .blog-comments__actions
-                      .btn-group.btn-group-sm
-                        button.btn.btn-white(type='button')
-                          span.text-success
-                            i.material-icons check
-                          |  Approve
-                        button.btn.btn-white(type='button')
-                          span.text-danger
-                            i.material-icons clear
-                          |  Reject
-                        button.btn.btn-white(type='button')
-                          span.text-light
-                            i.material-icons more_vert
-                          |  Edit
+                // -for (let i = 0; i < docs.length; i++)
+                //   +rowsTable(client[i].dataValues.id,
+                //     client[i].dataValues.SecondName + ' ' + client[i].dataValues.FirstName + ' ' + client[i].dataValues.Patronymic,
+                //     client[i].dataValues.Birthday,
+                //     client[i].dataValues.PhoneNumber,
+                //     client[i].dataValues.DLNumber,
+                //     client[i].dataValues.Adress)
               .card-footer.border-top
                 .row
                   .col.text-center.view-report
-                    button.btn.btn-white(type='submit') View All Comments
+                    a.btn.btn-white(href='/notifications') Посмотрть все
           // End Discussions Component
           // Top Referrals Component
           //.col-lg-3.col-md-12.col-sm-12.mb-4
@@ -365,19 +195,19 @@ head
           // End Top Referrals Component
       footer.main-footer.d-flex.p-2.px-3.bg-white.border-top
         ul.nav
-          li.nav-item
-            a.nav-link(href='#') Home
-          li.nav-item
-            a.nav-link(href='#') Services
-          li.nav-item
-            a.nav-link(href='#') About
-          li.nav-item
-            a.nav-link(href='#') Products
-          li.nav-item
-            a.nav-link(href='#') Blog
+          //li.nav-item
+          //  a.nav-link(href='#') Home
+          //li.nav-item
+          //  a.nav-link(href='#') Services
+          //li.nav-item
+          //  a.nav-link(href='#') About
+          //li.nav-item
+          //  a.nav-link(href='#') Products
+          //li.nav-item
+          //  a.nav-link(href='#') Blog
         span.copyright.ml-auto.my-auto.mr-2
           | Copyright &copy; 2019 ki1it & SergeyStaroletov
-          a(href='https://designrevision.com' rel='nofollow') DesignRevision
+
 script(src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous')
 script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')
 script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous')

@@ -3,7 +3,7 @@ const DocSigners = require('../models/DocSigners')
 const User = require('../models/User')
 const SignedStatus = require('../models/SignedStatus')
 const Position = require('../models/Position')
-
+const DocType = require('../models/DocType')
 
 Document.hasMany(DocSigners, { foreignKey: 'DocumentFK', sourceKey: 'id'})
 DocSigners.belongsTo(Document, { foreignKey: 'DocumentFK', targetKey: 'id'})
@@ -13,6 +13,9 @@ DocSigners.belongsTo(User, { foreignKey: 'UserFK', targetKey: 'id'})
 
 Position.hasMany(User, { foreignKey: 'PositionFK', sourceKey: 'id'})
 User.belongsTo(Position, { foreignKey: 'PositionFK', targetKey: 'id'})
+
+DocType.hasMany(Document, { foreignKey: 'TypeFK', sourceKey: 'id'})
+Document.belongsTo(DocType, { foreignKey: 'TypeFK', targetKey: 'id'})
 
 SignedStatus.hasMany(DocSigners, { foreignKey: 'SignedFK', sourceKey: 'id'})
 DocSigners.belongsTo(SignedStatus, { foreignKey: 'SignedFK', targetKey: 'id'})
@@ -24,6 +27,7 @@ DocSigners.belongsTo(SignedStatus, { foreignKey: 'SignedFK', targetKey: 'id'})
 async function init () {
     await Position.sync({force:true})
     await SignedStatus.sync({force:true})
+    await DocType.sync({force:true})
     await Document.sync({force:true})
     await User.sync({force:true})
     await DocSigners.sync({force:true})
