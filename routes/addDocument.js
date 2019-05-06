@@ -50,6 +50,7 @@ router.get('/',async function(req, res, next) {
             document: document,
             users: users,
             signers: signers,
+            username: req.session.user.Login,
         });
 });
 

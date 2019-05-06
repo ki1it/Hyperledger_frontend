@@ -19,7 +19,8 @@ router.get('/',async function(req, res, next) {
   })
   res.render('index', {
     notif: notif,
-    userid: req.session.user.UserFK
+    userid: req.session.user.UserFK,
+    username: req.session.user.Login
   });
 });
 

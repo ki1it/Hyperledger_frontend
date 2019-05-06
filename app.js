@@ -63,6 +63,7 @@ var sessionChecker = (req, res, next) => {
 
 
 app.get('/', sessionChecker, (req, res) => {
+
   res.redirect('/login');
 })
 // // route for user signup
