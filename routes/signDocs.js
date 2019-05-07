@@ -46,4 +46,22 @@ router.post('/signdoc', async function (req, res) {
 
 })
 
+router.post('/unsigndoc', async function (req, res) {
+
+    await DocSigners.update({
+        SignedFK: 2
+    },{
+        where: {
+            [Op.and]: [{DocumentFK: req.body.DocId}, {UserFK: req.body.UserId}]
+
+        }
+    })
+        .catch((err) => {
+            console.log(err)
+        })
+    res.redirect(req.url)
+
+})
+
+
 module.exports = router;

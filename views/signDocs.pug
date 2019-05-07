@@ -35,7 +35,7 @@ head
                                 span.text-success
                                     i.material-icons check
                                 |  Подписать
-                            button.btn.btn-white(type='button')
+                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/unsigndoc', data: {UserId:" + userid + ", DocId:" + DocId + "} })")
                                 span.text-danger
                                     i.material-icons clear
                                 |  Отклонить
