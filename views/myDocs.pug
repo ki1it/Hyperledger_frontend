@@ -3,7 +3,7 @@
 //block content
 //  h1= title
 //  p Welcome to #{title}
-doctype html
+
 head
     meta(charset='utf-8')
     meta(http-equiv='x-ua-compatible' content='ie=edge')
@@ -17,7 +17,9 @@ head
     link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
     script(async='' defer='' src='https://buttons.github.io/buttons.js')
     - var i=0;
-        mixin notif(id, Name, Type, Date, Author)
+        mixin signers(id, FName, SName, Status, Comment)
+            p.m-0.my-1.mb-2.text-muted #{FName} #{SName} #{Status} #{Comment}
+        mixin docs(id, Name, Type, Date, Author, Signers)
             .blog-comments__item.d-flex.p-3
                 .blog-comments__avatar.mr-3
                     img(src='images/avatars/1.jpg' alt='User avatar')
@@ -29,19 +31,12 @@ head
                         //span.text-muted &ndash; 2 дня назад
                     p.m-0.my-1.mb-2.text-muted #{Name}
                     .blog-comments__actions
-                        .btn-group.btn-group-sm
-                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signDocs/signdoc', data: 'Userid=" + Userid + "','Docid=" + id + " })")
-                                span.text-success
-                                    i.material-icons check
-                                |  Подписать
-                            button.btn.btn-white(type='button')
-                                span.text-danger
-                                    i.material-icons clear
-                                |  Отклонить
-                            button.btn.btn-white(type='button')
-                                span.text-light
-                                    i.material-icons more_vert
-                                |  Оставить комментарий
+                        -for (let j = 0; j < Signers.length; j++)
+                            +signers(Signers[j].dataValues.id,
+                                Signers[j].User.dataValues.FirstName,
+                                Signers[j].User.dataValues.SecondName,
+                                Signers[j].SignedStatus.dataValues.Name,
+                                Signers[j].dataValues.Comment)
 
 .container-fluid
     .row
@@ -136,59 +131,18 @@ head
                             .card-header.border-bottom
                                 h6.m-0 Последние уведомления
                             .card-body.p-0
-                                -for (let i = 0; i < notif.length; i++)
-                                    +notif(notif[i].dataValues.id,
-                                    notif[i].Document.dataValues.Name,
-                                    notif[i].Document.DocType.dataValues.Name,
-                                    notif[i].Document.dataValues.Date,
-                                    notif[i].Document.User.dataValues.FirstName + " " + notif[i].Document.User.dataValues.SecondName)
+                                -for (let i = 0; i < docs.length; i++)
+                                    +docs(docs[i].dataValues.id,
+                                    docs[i].dataValues.Name,
+                                    docs[i].DocType.dataValues.Name,
+                                    docs[i].dataValues.Date,
+                                    docs[i].User.dataValues.FirstName + " " + docs[i].User.dataValues.SecondName,
+                                    docs[i].DocSigners)
                             .card-footer.border-top
                                 .row
                                     .col.text-center.view-report
                                         a.btn.btn-white(href='/notifications') Посмотрть все
-                    // End Discussions Component
-                    // Top Referrals Component
-                    //.col-lg-3.col-md-12.col-sm-12.mb-4
-                    //  .card.card-small
-                    //    .card-header.border-bottom
-                    //      h6.m-0 Top Referrals
-                    //    .card-body.p-0
-                    //      ul.list-group.list-group-small.list-group-flush
-                    //        li.list-group-item.d-flex.px-3
-                    //          span.text-semibold.text-fiord-blue GitHub
-                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 19,291
-                    //        li.list-group-item.d-flex.px-3
-                    //          span.text-semibold.text-fiord-blue Stack Overflow
-                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 11,201
-                    //        li.list-group-item.d-flex.px-3
-                    //          span.text-semibold.text-fiord-blue Hacker News
-                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 9,291
-                    //        li.list-group-item.d-flex.px-3
-                    //          span.text-semibold.text-fiord-blue Reddit
-                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 8,281
-                    //        li.list-group-item.d-flex.px-3
-                    //          span.text-semibold.text-fiord-blue The Next Web
-                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 7,128
-                    //        li.list-group-item.d-flex.px-3
-                    //          span.text-semibold.text-fiord-blue Tech Crunch
-                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 6,218
-                    //        li.list-group-item.d-flex.px-3
-                    //          span.text-semibold.text-fiord-blue YouTube
-                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 1,218
-                    //        li.list-group-item.d-flex.px-3
-                    //          span.text-semibold.text-fiord-blue Adobe
-                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 827
-                    //    .card-footer.border-top
-                    //      .row
-                    //        .col
-                    //          select.custom-select.custom-select-sm
-                    //            option(selected='') Last Week
-                    //            option(value='1') Today
-                    //            option(value='2') Last Month
-                    //            option(value='3') Last Year
-                    //        .col.text-right.view-report
-                    //          a(href='#') Full report &rarr;
-                    // End Top Referrals Component
+
             footer.main-footer.d-flex.p-2.px-3.bg-white.border-top
                 ul.nav
                     //li.nav-item

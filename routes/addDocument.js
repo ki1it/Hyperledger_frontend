@@ -73,6 +73,7 @@ router.post('/add', async function (req, res) {
         .catch((err) => {
             console.log(err)
         })
+    res.redirect('/myDocs')
 
 })
 

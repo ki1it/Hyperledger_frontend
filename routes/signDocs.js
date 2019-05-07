@@ -19,6 +19,9 @@ router.get('/',async function(req, res, next) {
         include: [{model: Document,include:[{model: DocType , as: 'DocType'},{model: User, as: 'User'}], as: 'Document'},],
 
     })
+        .catch((err) => {
+            console.log(err)
+        })
     res.render('signDocs', {
         notif: notif,
         userid:req.session.user.UserFK,

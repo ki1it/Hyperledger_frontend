@@ -1,9 +1,9 @@
 //extends layout
 ////
 //block content
-//  h1= message
-//  h2= error.status
-//  pre #{error.stack}
+h1= message
+h2= error.status
+pre #{error.stack}
 head
   meta(charset='utf-8')
   meta(http-equiv='x-ua-compatible' content='ie=edge')
@@ -25,7 +25,7 @@ head
           h2 #{error.status}
           h3 Что-то пошло не так!
           p Мы уже занимаемся этим. Скоро все починим
-          a.btn.btn-accent.btn-pill(href='/') &larr; На главную
+          a.btn.btn-accent.btn-pill(href='/index') &larr; На главную
         // / .error_content
       // / .error
 

@@ -14,6 +14,9 @@ router.get('/',async function(req, res, next) {
             id: req.session.user.UserFK,
             }
     })
+        .catch((err) => {
+            console.log(err)
+        })
     res.render('userProfile', {
         user:user,
         username: req.session.user.Login

@@ -17,6 +17,9 @@ router.get('/',async function(req, res, next) {
       include: [{model: Document,include:[{model: DocType , as: 'DocType'},{model: User, as: 'User'}], as: 'Document'},],
     limit:5
   })
+      .catch((err) => {
+        console.log(err)
+      })
   res.render('index', {
     notif: notif,
     userid: req.session.user.UserFK,

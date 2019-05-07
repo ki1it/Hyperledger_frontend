@@ -9,16 +9,20 @@ const DocType = require('../database/models/DocType')
 
 /* GET home page. */
 router.get('/',async function(req, res, next) {
-    let notif = await DocSigners.findAll({
+    let docs = await Document.findAll({
         where:{
-            UserFK: req.session.user.UserFK,
-            SignedFK: 4},
+            AuthorFK: req.session.user.UserFK,
+            },
 
-        include: [{model: Document,include:[{model: DocType , as: 'DocType'},{model: User, as: 'User'}], as: 'Document'},],
+        include: [{model: DocSigners,include:[{model: User, as: 'User'},{model: SignedStatus, as: 'SignedStatus'}], as: 'DocSigners'},
+            {model: DocType , as: 'DocType'},{model: User, as: 'User'}],
         limit:5
     })
-    res.render('index', {
-        notif: notif,
+        .catch((err) => {
+        console.log(err)
+    })
+    res.render('myDocs', {
+        docs: docs,
         userid: req.session.user.UserFK,
         username: req.session.user.Login
     });
