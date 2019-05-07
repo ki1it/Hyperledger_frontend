@@ -16,7 +16,7 @@ router.get('/',async function(req, res, next) {
             [Op.and]: [{ UserFK: req.session.user.UserFK}, {SignedFK: 4}]},
 
 
-        include: [{model: User, as: 'User'},{model: Document,include:{model: DocType , as: 'DocType'}, as: 'Document'},],
+        include: [{model: Document,include:[{model: DocType , as: 'DocType'},{model: User, as: 'User'}], as: 'Document'},],
 
     })
     res.render('signDocs', {

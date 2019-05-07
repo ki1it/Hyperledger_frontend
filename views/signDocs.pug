@@ -111,7 +111,10 @@ head
 
                         li.nav-item.dropdown
                             a.nav-link.dropdown-toggle.text-nowrap.px-3(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false')
-                                img.user-avatar.rounded-circle.mr-2(src='images/avatars/0.jpg' alt='User Avatar')
+                                if username === 'semen'
+                                    img.user-avatar.rounded-circle.mr-2(src='images/avatars/semen.png' alt='User Avatar')
+                                if username === 'serg'
+                                    img.user-avatar.rounded-circle.mr-2(src='images/avatars/serg.png' alt='User Avatar')
                                 span.d-none.d-md-inline-block #{username}
                             .dropdown-menu.dropdown-menu-small
                                 a.dropdown-item.text-danger(href='/login' onclick="$.ajax({type: 'GET', url: '/logout'})")
@@ -137,7 +140,7 @@ head
                                 notif[i].Document.dataValues.Name,
                                 notif[i].Document.DocType.dataValues.Name,
                                 notif[i].Document.dataValues.Date,
-                                notif[i].User.dataValues.FirstName + " " + notif[i].User.dataValues.SecondName,
+                                notif[i].Document.User.dataValues.FirstName + " " + notif[i].Document.User.dataValues.SecondName,
                                 notif[i].Document.dataValues.Text,
                                 notif[i].Document.dataValues.id)
                     .card-footer.border-top
