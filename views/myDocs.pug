@@ -1,0 +1,215 @@
+//extends layout
+//
+//block content
+//  h1= title
+//  p Welcome to #{title}
+doctype html
+head
+    meta(charset='utf-8')
+    meta(http-equiv='x-ua-compatible' content='ie=edge')
+    title АРМ Универ
+    meta(name='description' content='A high-quality & free Bootstrap admin dashboard template pack that comes with lots of templates and components.')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous')
+    link#main-stylesheet(rel='stylesheet' data-version='1.1.0' href='styles/shards-dashboards.1.1.0.min.css')
+    link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
+    script(async='' defer='' src='https://buttons.github.io/buttons.js')
+    - var i=0;
+        mixin notif(id, Name, Type, Date, Author)
+            .blog-comments__item.d-flex.p-3
+                .blog-comments__avatar.mr-3
+                    img(src='images/avatars/1.jpg' alt='User avatar')
+                .blog-comments__content
+                    .blog-comments__meta.text-muted
+                        a.text-secondary(href='#') #{Author}
+                        |  создал
+                        a.text-secondary(href='#')  #{' '+Type}
+                        //span.text-muted &ndash; 2 дня назад
+                    p.m-0.my-1.mb-2.text-muted #{Name}
+                    .blog-comments__actions
+                        .btn-group.btn-group-sm
+                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signDocs/signdoc', data: 'Userid=" + Userid + "','Docid=" + id + " })")
+                                span.text-success
+                                    i.material-icons check
+                                |  Подписать
+                            button.btn.btn-white(type='button')
+                                span.text-danger
+                                    i.material-icons clear
+                                |  Отклонить
+                            button.btn.btn-white(type='button')
+                                span.text-light
+                                    i.material-icons more_vert
+                                |  Оставить комментарий
+
+.container-fluid
+    .row
+        // Main Sidebar
+        aside.main-sidebar.col-12.col-md-3.col-lg-2.px-0
+            .main-navbar
+                nav.navbar.align-items-stretch.navbar-light.bg-white.flex-md-nowrap.border-bottom.p-0
+                    a.navbar-brand.w-100.mr-0(href='#' style='line-height: 25px;')
+                        .d-table.m-auto
+                            img#main-logo.d-inline-block.align-top.mr-1(style='max-width: 25px;' src='images/shards-dashboards-logo.svg' alt='Shards Dashboard')
+                            span.d-none.d-md-inline.ml-1 АРМ Универ
+                    a.toggle-sidebar.d-sm-inline.d-md-none.d-lg-none
+                        i.material-icons &#xE5C4;
+            form.main-sidebar__search.w-100.border-right.d-sm-flex.d-md-none.d-lg-none(action='#')
+                .input-group.input-group-seamless.ml-3
+                    //.input-group-prepend
+                    //  .input-group-text
+                    //    i.fas.fa-search
+                    //input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
+            .nav-wrapper
+                ul.nav.flex-column
+                    li.nav-item
+                        a.nav-link.active(href='/index')
+                            i.material-icons view_module
+                            span Главная
+                    li.nav-item
+                        a.nav-link(href='signDocs')
+                            i.material-icons vertical_split
+                            span Документы на подпись
+                    li.nav-item
+                        a.nav-link(href='addDocument')
+                            i.material-icons table_chart
+                            span Мои документы
+                    li.nav-item
+                        a.nav-link(href='addDocument')
+                            i.material-icons note_add
+                            span Создать документ
+                    //li.nav-item
+                    //  a.nav-link(href='form-components.html')
+                    //    i.material-icons edit
+                    //    span Forms &amp; Components
+                    //li.nav-item
+                    //  a.nav-link(href='tables.html')
+                    //    i.material-icons table_chart
+                    //    span Tables
+                    li.nav-item
+                        a.nav-link(href='userprofile')
+                            i.material-icons person
+                            span Мой профиль
+                    //li.nav-item
+                    //  a.nav-link(href='errors.html')
+                    //    i.material-icons error
+                    //    span Errors
+        // End Main Sidebar
+        main.main-content.col-lg-10.col-md-9.col-sm-12.p-0.offset-lg-2.offset-md-3
+            .main-navbar.sticky-top.bg-white
+                // Main Navbar
+                nav.navbar.align-items-stretch.navbar-light.flex-md-nowrap.p-0
+                    form.main-navbar__search.w-100.d-none.d-md-flex.d-lg-flex(action='#')
+                        .input-group.input-group-seamless.ml-3
+                            //.input-group-prepend
+                            //  .input-group-text
+                            //    i.fas.fa-search
+                            //input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
+                    ul.navbar-nav.border-left.flex-row
+
+                        li.nav-item.dropdown
+                            a.nav-link.dropdown-toggle.text-nowrap.px-3(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false')
+                                if username === 'semen'
+                                    img.user-avatar.rounded-circle.mr-2(src='images/avatars/semen.png' alt='User Avatar')
+                                if username === 'serg'
+                                    img.user-avatar.rounded-circle.mr-2(src='images/avatars/serg.png' alt='User Avatar')
+                                span.d-none.d-md-inline-block #{username}
+                            .dropdown-menu.dropdown-menu-small
+                                a.dropdown-item.text-danger(href='/login' onclick="$.ajax({type: 'GET', url: '/logout'})")
+                                    i.material-icons.text-danger &#xE879;
+                                    |  Выйти
+                    nav.nav
+                        a.nav-link.nav-link-icon.toggle-sidebar.d-md-inline.d-lg-none.text-center.border-left(href='#' data-toggle='collapse' data-target='.header-navbar' aria-expanded='false' aria-controls='header-navbar')
+                            i.material-icons &#xE5D2;
+            // / .main-navbar
+            .main-content-container.container-fluid.px-4
+                // Page Header
+                .page-header.row.no-gutters.py-4
+                    .col-12.col-sm-4.text-center.text-sm-left.mb-0
+                        //span.text-uppercase.page-subtitle Dashboard
+                        h3.page-title Главная
+                .row
+
+                    .col-lg-5.col-md-12.col-sm-12.mb-4
+                        .card.card-small.blog-comments
+                            .card-header.border-bottom
+                                h6.m-0 Последние уведомления
+                            .card-body.p-0
+                                -for (let i = 0; i < notif.length; i++)
+                                    +notif(notif[i].dataValues.id,
+                                    notif[i].Document.dataValues.Name,
+                                    notif[i].Document.DocType.dataValues.Name,
+                                    notif[i].Document.dataValues.Date,
+                                    notif[i].Document.User.dataValues.FirstName + " " + notif[i].Document.User.dataValues.SecondName)
+                            .card-footer.border-top
+                                .row
+                                    .col.text-center.view-report
+                                        a.btn.btn-white(href='/notifications') Посмотрть все
+                    // End Discussions Component
+                    // Top Referrals Component
+                    //.col-lg-3.col-md-12.col-sm-12.mb-4
+                    //  .card.card-small
+                    //    .card-header.border-bottom
+                    //      h6.m-0 Top Referrals
+                    //    .card-body.p-0
+                    //      ul.list-group.list-group-small.list-group-flush
+                    //        li.list-group-item.d-flex.px-3
+                    //          span.text-semibold.text-fiord-blue GitHub
+                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 19,291
+                    //        li.list-group-item.d-flex.px-3
+                    //          span.text-semibold.text-fiord-blue Stack Overflow
+                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 11,201
+                    //        li.list-group-item.d-flex.px-3
+                    //          span.text-semibold.text-fiord-blue Hacker News
+                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 9,291
+                    //        li.list-group-item.d-flex.px-3
+                    //          span.text-semibold.text-fiord-blue Reddit
+                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 8,281
+                    //        li.list-group-item.d-flex.px-3
+                    //          span.text-semibold.text-fiord-blue The Next Web
+                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 7,128
+                    //        li.list-group-item.d-flex.px-3
+                    //          span.text-semibold.text-fiord-blue Tech Crunch
+                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 6,218
+                    //        li.list-group-item.d-flex.px-3
+                    //          span.text-semibold.text-fiord-blue YouTube
+                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 1,218
+                    //        li.list-group-item.d-flex.px-3
+                    //          span.text-semibold.text-fiord-blue Adobe
+                    //          span.ml-auto.text-right.text-semibold.text-reagent-gray 827
+                    //    .card-footer.border-top
+                    //      .row
+                    //        .col
+                    //          select.custom-select.custom-select-sm
+                    //            option(selected='') Last Week
+                    //            option(value='1') Today
+                    //            option(value='2') Last Month
+                    //            option(value='3') Last Year
+                    //        .col.text-right.view-report
+                    //          a(href='#') Full report &rarr;
+                    // End Top Referrals Component
+            footer.main-footer.d-flex.p-2.px-3.bg-white.border-top
+                ul.nav
+                    //li.nav-item
+                    //  a.nav-link(href='#') Home
+                    //li.nav-item
+                    //  a.nav-link(href='#') Services
+                    //li.nav-item
+                    //  a.nav-link(href='#') About
+                    //li.nav-item
+                    //  a.nav-link(href='#') Products
+                    //li.nav-item
+                    //  a.nav-link(href='#') Blog
+                span.copyright.ml-auto.my-auto.mr-2
+                    | Copyright &copy; 2019 ki1it & SergeyStaroletov
+
+script(src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')
+script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js')
+script(src='https://unpkg.com/shards-ui@latest/dist/js/shards.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js')
+script(src='scripts/extras.1.1.0.min.js')
+script(src='scripts/shards-dashboards.1.1.0.min.js')
+script(src='scripts/app/app-blog-overview.1.1.0.js')

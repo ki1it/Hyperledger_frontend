@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var addDocumentRouter = require('./routes/addDocument');
 var signDocsRouter = require('./routes/signDocs');
 var userProfileRouter = require('./routes/userProfile');
+var myDocsRouter = require('./routes/myDocs');
 
 var app = express();
 require('./database/lib/dbInit')
@@ -143,7 +144,7 @@ app.use('/users', usersRouter);
 app.use('/addDocument', addDocumentRouter);
 app.use('/signDocs', signDocsRouter);
 app.use('/userProfile', userProfileRouter);
-
+app.use('/myDocs', myDocsRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
