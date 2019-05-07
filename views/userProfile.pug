@@ -134,7 +134,9 @@ head
                                 .mb-3.mx-auto
                                     if username==='semen'
                                         img.rounded-circle(src='images/avatars/semen.png' alt='User Avatar' width='110')
-                                h4.mb-0 Семен Кантор
+                                    if username === 'serg'
+                                        img.rounded-circle(src='images/avatars/serg.png' alt='User Avatar' width='110')
+                                h4.mb-0 #{user.dataValues.FirstName} #{user.dataValues.SecondName}
                                 span.text-muted.d-block.mb-2 Зав кафедрой ПМ
                             ul.list-group.list-group-flush
                                 li.list-group-item.p-4
@@ -153,10 +155,10 @@ head
                                                 .form-row
                                                     .form-group.col-md-6
                                                         label(for='feFirstName') Имя
-                                                        input#feFirstName.form-control(type='text' placeholder='Имя' value='Семен')
+                                                        input#feFirstName.form-control(type='text' placeholder='Имя' value=user.dataValues.FirstName)
                                                     .form-group.col-md-6
                                                         label(for='feLastName') Фамилия
-                                                        input#feLastName.form-control(type='text' placeholder='Фамилия' value='Кантор')
+                                                        input#feLastName.form-control(type='text' placeholder='Фамилия' value=user.dataValues.SecondName)
                                                 .form-row
                                                     .form-group.col-md-6
                                                         label(for='feEmailAddress') Email
