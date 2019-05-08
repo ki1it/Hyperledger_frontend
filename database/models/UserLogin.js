@@ -12,7 +12,10 @@ const  UserLogin = sequelize.define('UserLogin', {
     },
     UserFK:{
         type: Sequelize.INTEGER,
-    }
+    },
+    Photo: {
+        type: Sequelize.TEXT,
+    },
 });
 
 module.exports = UserLogin;

@@ -130,10 +130,7 @@ head
                             //    a.dropdown-item.notification__all.text-center(href='#')  View all Notifications
                         li.nav-item.dropdown
                             a.nav-link.dropdown-toggle.text-nowrap.px-3(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false')
-                                if username === 'semen'
-                                    img.user-avatar.rounded-circle.mr-2(src='images/avatars/semen.png' alt='User Avatar')
-                                if username === 'serg'
-                                    img.user-avatar.rounded-circle.mr-2(src='images/avatars/serg.png' alt='User Avatar')
+                                img.user-avatar.rounded-circle.mr-2(src=userphoto alt='User Avatar')
                                 span.d-none.d-md-inline-block #{username}
                             .dropdown-menu.dropdown-menu-small
                                 a.dropdown-item.text-danger(href='/login' onclick="$.ajax({type: 'GET', url: '/logout'})")

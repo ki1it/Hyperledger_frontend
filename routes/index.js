@@ -23,7 +23,8 @@ router.get('/',async function(req, res, next) {
   res.render('index', {
     notif: notif,
     userid: req.session.user.UserFK,
-    username: req.session.user.Login
+    username: req.session.user.User.FirstName + ' ' + req.session.user.User.SecondName,
+    position: req.session.user.User.Position.id
   });
 });
 
