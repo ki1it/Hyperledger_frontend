@@ -9,7 +9,7 @@ const DocType = require('../database/models/DocType')
 
 /* GET home page. */
 router.get('/',async function(req, res, next) {
-    let user = await User.findAll({
+    let user = await User.findOne({
         where:{
             id: req.session.user.UserFK,
             }

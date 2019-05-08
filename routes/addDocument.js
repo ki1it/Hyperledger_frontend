@@ -76,7 +76,28 @@ router.post('/add', async function (req, res) {
     res.redirect('/myDocs')
 
 })
+router.post('/save', async function (req, res) {
+    let type = await DocType.findOne({
+        where:{Name: req.body.inputType}
+    })
+        .catch((err) => {
+            console.log(err)
+        })
+    let doc = await Document.update({
+            Name: req.body.inputName,
+            Number: req.body.inputNum,
+            TypeFK: type.dataValues.id,
+            AuthorFK: 2,
+            Text: req.body.inputText,
+            Date: moment(req.body.inputDate, 'YYYY-MM-DD').startOf('day')},
+        {where:{id:req.query.id}
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
+
+})
 
 router.post('/addSigner', async function (req, res) {
     let user= await User.findOne({
