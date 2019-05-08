@@ -111,7 +111,7 @@ app.route('/login')
           //   res.redirect('/signup')
           // }
           // if (user.dataValues.role === 'administrator') {
-            res.redirect('/index')
+            res.redirect('/signDocs')
           //}
 
           // if (user.dataValues.role === 'worker') {
@@ -139,7 +139,7 @@ app.get('/logout', (req, res) => {
 });
 
 
-app.use('/index', indexRouter);
+// app.use('/index', indexRouter);
 app.use('/users', usersRouter);
 app.use('/addDocument', addDocumentRouter);
 app.use('/signDocs', signDocsRouter);
