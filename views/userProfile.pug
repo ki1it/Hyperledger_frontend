@@ -31,34 +31,7 @@ head
                     input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
             .nav-wrapper
                 ul.nav.flex-column
-                    //li.nav-item
-                    //    a.nav-link(href='/index')
-                    //        i.material-icons view_module
-                    //        span Главная
-                    li.nav-item
-                        a.nav-link(href='signDocs')
-                            i.material-icons vertical_split
-                            span Документы на подпись
-                    li.nav-item
-                        a.nav-link(href='myDocs')
-                            i.material-icons table_chart
-                            span Мои документы
-                    li.nav-item
-                        a.nav-link(href='addDocument')
-                            i.material-icons note_add
-                            span Создать документ
-                    //li.nav-item
-                    //  a.nav-link(href='form-components.html')
-                    //    i.material-icons edit
-                    //    span Forms &amp; Components
-                    //li.nav-item
-                    //  a.nav-link(href='tables.html')
-                    //    i.material-icons table_chart
-                    //    span Tables
-                    li.nav-item
-                        a.nav-link.active(href='userprofile')
-                            i.material-icons person
-                            span Мой профиль
+                    include menu.pug
         // End Main Sidebar
         main.main-content.col-lg-10.col-md-9.col-sm-12.p-0.offset-lg-2.offset-md-3
             .main-navbar.sticky-top.bg-white
@@ -100,10 +73,7 @@ head
                         //        a.dropdown-item.notification__all.text-center(href='#')  View all Notifications
                         li.nav-item.dropdown
                             a.nav-link.dropdown-toggle.text-nowrap.px-3(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false')
-                                if username==='semen'
-                                    img.user-avatar.rounded-circle.mr-2(src='images/avatars/semen.png' alt='User Avatar')
-                                if username==='serg'
-                                    img.user-avatar.rounded-circle.mr-2(src='images/avatars/serg.png' alt='User Avatar')
+                                img.user-avatar.rounded-circle.mr-2(src=userphoto alt='User Avatar')
                                 span.d-none.d-md-inline-block #{username}
                             .dropdown-menu.dropdown-menu-small
                                 a.dropdown-item.text-danger(href='/login' onclick="$.ajax({type: 'GET', url: '/logout'})")
@@ -132,10 +102,7 @@ head
                         .card.card-small.mb-4.pt-3
                             .card-header.border-bottom.text-center
                                 .mb-3.mx-auto
-                                    if username==='semen'
-                                        img.rounded-circle(src='images/avatars/semen.png' alt='User Avatar' width='110')
-                                    if username === 'serg'
-                                        img.rounded-circle(src='images/avatars/serg.png' alt='User Avatar' width='110')
+                                    img.rounded-circle(src=userphoto alt='User Avatar' width='110')
                                 h4.mb-0 #{user.dataValues.FirstName} #{user.dataValues.SecondName}
                                 span.text-muted.d-block.mb-2 Зав кафедрой ПМ
                             ul.list-group.list-group-flush

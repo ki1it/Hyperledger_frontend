@@ -30,6 +30,8 @@ var morgan = require('morgan');
 // set morgan to log info about our requests for development use.
 app.use(morgan('dev'));
 var UserLogin = require('./database/models/UserLogin');
+var User = require('./database/models/User');
+var Position = require('./database/models/Position');
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.urlencoded({extended: true}));
 // initialize express-session to allow us track the logged-in user across sessions.
@@ -100,7 +102,8 @@ app.route('/login')
       var username = req.body.username,
           password = req.body.password;
 
-      UserLogin.findOne({where: {Login: username}}).then(function (user) {
+      UserLogin.findOne({where: {Login: username},include:{model: User ,include:{model: Position , as: 'Position'},
+          as: 'User'}}).then(function (user) {
         if (!user) {
           res.redirect('/login');
         } else if (user.dataValues.Password!==password) {
