@@ -31,7 +31,24 @@ head
                     input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
             .nav-wrapper
                 ul.nav.flex-column
-                    include menu.pug
+                    if(position !== 2)
+                        li.nav-item
+                            a.nav-linkhref='notofications')
+                                i.material-icons vertical_split
+                                span Документы на подпись
+                    li.nav-item
+                        a.nav-link(href='myDocs')
+                            i.material-icons table_chart
+                            span Мои документы
+                    if(position !== 5)
+                        li.nav-item
+                            a.nav-link(href='addDocument')
+                                i.material-icons note_add
+                                span Создать документ
+                    li.nav-item
+                        a.nav-link.active((href='userprofile')
+                            i.material-icons person
+                            span Мой профиль
         // End Main Sidebar
         main.main-content.col-lg-10.col-md-9.col-sm-12.p-0.offset-lg-2.offset-md-3
             .main-navbar.sticky-top.bg-white
