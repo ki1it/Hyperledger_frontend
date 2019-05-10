@@ -39,10 +39,15 @@ head
                                 span.text-danger
                                     i.material-icons clear
                                 |  Отклонить
-                            button.btn.btn-white(type='button')
+                            button#commentShowButton.btn.btn-white(type='button' data-id=id)
                                 span.text-light
                                     i.material-icons more_vert
                                 |  Оставить комментарий
+                    textarea(id='commentArea'+id hidden=true).m-0.my-1.mb-2
+                    button(id='commentSendButton'+id hidden=true).btn.btn-white
+                        span.text-success
+                            i.material-icons comment
+                        |  Отправить
 
 .container-fluid
     .row
@@ -212,3 +217,4 @@ script(src='https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.
 script(src='scripts/extras.1.1.0.min.js')
 script(src='scripts/shards-dashboards.1.1.0.min.js')
 script(src='scripts/app/app-blog-overview.1.1.0.js')
+script(src='scripts/hide.js')
