@@ -1,9 +1,22 @@
-$("#commentArea").hide();
-$("#commentSendButton").hide();
+// $("#commentArea").hide();
+// $("#commentSendButton").hide();
+$('.hideThis').hide();
 //клик по далее
-$('#commentShowButton').click(function () {
+$('.commentBut').click(function () {
     id=$(this).data('id');
     console.log(id);
-    $("#commentArea"+id).show();
-    $("#commentSendButton"+id).show();
+    let str1 = "#commentArea"+id
+    let str2 = "#commentSendButton"+id
+    $(str1).show();
+    $(str2).show();
 });
+
+function sendComment(userid,DocId,id) {
+
+    console.log(id);
+    $.ajax({
+        type: 'POST',
+        url: '/signdocs/comment',
+        data: {UserId: userid , DocId:  DocId , Comment:  document.getElementById('commentArea'+id).value }
+    })
+}

@@ -17,7 +17,7 @@ head
     link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
     script(async='' defer='' src='https://buttons.github.io/buttons.js')
     - var i=0;
-        mixin notif(id, Name, Type, Date, Author, Text, DocId)
+        mixin notif(ID, Name, Type, Date, Author, Text, DocId)
             .blog-comments__item.d-flex.p-3
                 .blog-comments__avatar.mr-3
                     img(src='images/avatars/1.jpg' alt='User avatar')
@@ -39,12 +39,13 @@ head
                                 span.text-danger
                                     i.material-icons clear
                                 |  Отклонить
-                            button#commentShowButton.btn.btn-white(type='button' data-id=id)
+                            button#commentShowButton.btn.btn-white(type='button' class='commentBut' data-id=ID)
                                 span.text-light
                                     i.material-icons more_vert
                                 |  Оставить комментарий
-                    textarea(id='commentArea'+id hidden=true).m-0.my-1.mb-2
-                    button(id='commentSendButton'+id hidden=true).btn.btn-white
+                    textarea(id='commentArea'+ID class='hideThis').m-0.my-1.mb-2
+                    br
+                    button(id='commentSendButton'+ID class='hideThis' onclick="sendComment("+userid+','+ DocId+',' + ID+")").btn.btn-white
                         span.text-success
                             i.material-icons comment
                         |  Отправить
