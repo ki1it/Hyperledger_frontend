@@ -12,8 +12,6 @@ $('.commentBut').click(function () {
 });
 
 function sendComment(userid,DocId,id) {
-
-    console.log(id);
     $.ajax({
         type: 'POST',
         url: '/signdocs/comment',
