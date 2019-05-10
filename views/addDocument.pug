@@ -152,9 +152,9 @@ head
                                                             strong.text-muted.d-block.mb-2 Номер
                                                                 .form-group
                                                                     if(document.dataValues.Number == null)
-                                                                        input.form-control(name="inputNum" type="text" required=true)
+                                                                        input.form-control(name="inputNum" type="number" required=true)
                                                                     else
-                                                                        input.form-control(name="inputNum" type="text" ,value = document.dataValues.Number)
+                                                                        input.form-control(name="inputNum" type="number" ,value = document.dataValues.Number)
                                                                     //input.form-control(type='text' name="inputNum")
                                                         .col-sm-12.col-md-4
                                                             strong.text-muted.d-block.mb-2 Дата
