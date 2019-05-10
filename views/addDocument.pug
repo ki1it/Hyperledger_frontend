@@ -154,7 +154,8 @@ head
                                                                         input#ei.form-control(type='text' list='types' name="inputType")
                                                                         datalist#types
                                                                             -for (let i = 0; i < type.length; i++)
-                                                                                option(value=type[i].dataValues.Name)
+                                                                                if((position===2 && i===1) || (position===5 && i===2) || (i!==2 && position!==2))
+                                                                                    option(value=type[i].dataValues.Name)
                                                                     else
                                                                         input#ei.form-control(type='text' list='types' name="inputType" value=document.dataValues.DocType.dataValues.Name)
                                                                         datalist#types
