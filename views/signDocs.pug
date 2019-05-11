@@ -31,11 +31,11 @@ head
                     p.m-0.my-1.mb-2 #{Text}
                     .blog-comments__actions
                         .btn-group.btn-group-sm
-                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/signdoc', data: {UserId:" + userid + ", DocId:" + DocId + "} })")
+                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/signdoc', data: {UserId:" + userid + ", DocId:" + DocId + "} }); location.reload();")
                                 span.text-success
                                     i.material-icons check
                                 |  Подписать
-                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/unsigndoc', data: {UserId:" + userid + ", DocId:" + DocId + "} })")
+                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/unsigndoc', data: {UserId:" + userid + ", DocId:" + DocId + "} }); location.reload();")
                                 span.text-danger
                                     i.material-icons clear
                                 |  Отклонить

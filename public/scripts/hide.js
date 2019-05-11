@@ -16,5 +16,6 @@ function sendComment(userid,DocId,id) {
         type: 'POST',
         url: '/signdocs/comment',
         data: {UserId: userid , DocId:  DocId , Comment:  document.getElementById('commentArea'+id).value }
-    })
+    });
+    location.reload();
 }
