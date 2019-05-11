@@ -44,7 +44,7 @@ router.post('/signdoc', async function (req, res) {
         .catch((err) => {
             console.log(err)
         })
-    res.redirect(req.url)
+    res.redirect(req.get('referer'));
 
 })
 
@@ -61,7 +61,7 @@ router.post('/unsigndoc', async function (req, res) {
         .catch((err) => {
             console.log(err)
         })
-    res.redirect(req.url)
+    res.redirect(req.get('referer'));
 
 })
 router.post('/comment', async function (req, res) {
@@ -78,7 +78,7 @@ router.post('/comment', async function (req, res) {
         .catch((err) => {
             console.log(err)
         })
-    res.redirect(req.url)
+    res.redirect(req.get('referer'));
 
 })
 
