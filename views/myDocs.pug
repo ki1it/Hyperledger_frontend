@@ -18,7 +18,9 @@ head
     script(async='' defer='' src='https://buttons.github.io/buttons.js')
     - var i=0;
         mixin signers(id, FName, SName, Status, Comment)
-            p.m-0.my-1.mb-2.text-muted #{FName} #{SName} #{Status} #{Comment}
+            p.m-0.my-1.mb-2.text-muted #{FName} #{SName}
+                span.font-weight-bold  #{Status}
+                |  #{Comment}
         mixin docs(id, Name, Type, Date, Author,Text, Num, Signers)
             .blog-comments__item.d-flex.p-3
                 .blog-comments__avatar.mr-3
