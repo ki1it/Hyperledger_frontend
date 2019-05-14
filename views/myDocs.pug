@@ -19,17 +19,16 @@ head
     - var i=0;
         mixin signers(id, FName, SName, Status, Comment)
             p.m-0.my-1.mb-2.text-muted #{FName} #{SName} #{Status} #{Comment}
-        mixin docs(id, Name, Type, Date, Author, Signers)
+        mixin docs(id, Name, Type, Date, Author,Text, Signers)
             .blog-comments__item.d-flex.p-3
                 .blog-comments__avatar.mr-3
                     img(src='images/avatars/1.jpg' alt='User avatar')
                 .blog-comments__content
                     .blog-comments__meta.text-muted
-                        a.text-secondary(href='#') #{Author}
-                        |  создал
-                        a.text-secondary(href='#')  #{' '+Type}
+                        .text-secondary #{Author} создал #{Type}
                         //span.text-muted &ndash; 2 дня назад
                     p.m-0.my-1.mb-2.text-muted #{Name}
+                    p.m-0.my-1.mb-2 #{Text}
                     .blog-comments__actions
                         -for (let j = 0; j < Signers.length; j++)
                             +signers(Signers[j].dataValues.id,
@@ -121,6 +120,7 @@ head
                                         docs[i].DocType.dataValues.Name,
                                         docs[i].dataValues.Date,
                                         docs[i].User.dataValues.FirstName + " " + docs[i].User.dataValues.SecondName,
+                                        docs[i].dataValues.Text,
                                         docs[i].DocSigners)
                             .card-footer.border-top
 

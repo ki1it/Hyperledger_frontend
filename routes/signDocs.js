@@ -11,6 +11,10 @@ const Op = Sequelize.Op;
 
 /* GET home page. */
 router.get('/',async function(req, res, next) {
+    if (req.session.user === undefined) {
+        res.redirect('/login')
+        return
+    }
     let notif = await DocSigners.findAll({
         where:{
             [Op.and]: [{ UserFK: req.session.user.UserFK}, {SignedFK: 4}]},

@@ -9,6 +9,10 @@ const DocType = require('../database/models/DocType')
 
 /* GET home page. */
 router.get('/',async function(req, res, next) {
+    if (req.session.user === undefined) {
+        res.redirect('/login')
+        return
+    }
     let user = await User.findOne({
         where:{
             id: req.session.user.UserFK,

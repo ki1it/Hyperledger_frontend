@@ -12,7 +12,10 @@ const DocType = require('../database/models/DocType')
 /* GET home page. */
 router.get('/',async function(req, res, next) {
     let document
-
+    if (req.session.user === undefined) {
+        res.redirect('/login')
+        return
+    }
     if (req.query.ID === "" || req.query.ID === undefined) {
         document = await Document.create({
             AuthorFK: req.session.user.UserFK
@@ -117,6 +120,34 @@ router.post('/addSigner', async function (req, res) {
             console.log(err)
         })
     res.redirect('/addDocument?ID='+req.query.ID)
+
+})
+router.get('/checkNum', async function (req, res) {
+    let num = await Document.findOne({
+        where: {Number: req.query.Num}
+
+    })
+        .catch((err) => {
+            console.log(err)
+        })
+    if (num === null)
+        res.end("ok")
+    else
+        res.end("null")
+
+})
+router.get('/checkType', async function (req, res) {
+    let num = await DocType.findOne({
+        where: {Name: req.query.Name}
+
+    })
+        .catch((err) => {
+            console.log(err)
+        })
+    if (num !== null)
+        res.end("ok")
+    else
+        res.end("null")
 
 })
 module.exports = router;

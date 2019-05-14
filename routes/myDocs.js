@@ -9,14 +9,17 @@ const DocType = require('../database/models/DocType')
 
 /* GET home page. */
 router.get('/',async function(req, res, next) {
+    if (req.session.user === undefined) {
+        res.redirect('/login')
+        return
+    }
     let docs = await Document.findAll({
         where:{
             AuthorFK: req.session.user.UserFK,
             },
 
         include: [{model: DocSigners,include:[{model: User, as: 'User'},{model: SignedStatus, as: 'SignedStatus'}], as: 'DocSigners'},
-            {model: DocType , as: 'DocType'},{model: User, as: 'User'}],
-        limit:5
+            {model: DocType , as: 'DocType'},{model: User, as: 'User'}]
     })
         .catch((err) => {
         console.log(err)
