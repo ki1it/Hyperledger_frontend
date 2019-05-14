@@ -19,24 +19,6 @@ head
     - var i=0;
         mixin signers(id, FName, SName, Status, Comment)
             p.m-0.my-1.mb-2.text-muted #{FName} #{SName} #{Status} #{Comment}
-        mixin docs(id, Name, Type, Date, Author,Text, Num, Signers)
-            .blog-comments__item.d-flex.p-3
-                .blog-comments__avatar.mr-3
-                    img(src='images/avatars/1.jpg' alt='User avatar')
-                .blog-comments__content
-                    .blog-comments__meta.text-muted
-                        .text-secondary #{Author} создал #{Type} № #{Num}
-                        //span.text-muted &ndash; 2 дня назад
-                    p.m-0.my-1.mb-2.text-muted #{Name}
-                    //p.m-0.my-1.mb-2 #{Text}
-                    .blog-comments__actions
-                        -for (let j = 0; j < Signers.length; j++)
-                            +signers(Signers[j].dataValues.id,
-                                Signers[j].User.dataValues.FirstName,
-                                Signers[j].User.dataValues.SecondName,
-                                Signers[j].SignedStatus.dataValues.Name,
-                                Signers[j].dataValues.Comment)
-                        a.mb-2.btn.btn-sm.btn-primary(id="Open" class=button href="/viewDoc?id="+id title='Посмотреть') Посмотреть
 
 .container-fluid
     .row
@@ -106,25 +88,34 @@ head
                 .page-header.row.no-gutters.py-4
                     .col-12.col-sm-4.text-center.text-sm-left.mb-0
                         //span.text-uppercase.page-subtitle Dashboard
-                        h3.page-title Мои документы
+                        h3.page-title Просмотр документа
                 .row
 
                     .col-lg-5.col-md-12.col-sm-12.mb-4
                         .card.card-small.blog-comments
-                            .card-header.border-bottom
-                                h6.m-0 Документы и их статус
+                            //.card-header.border-bottom
+                                //h6.m-0 Документы и их статус
                             .card-body.p-0
-                                -for (let i = 0; i < docs.length; i++)
-                                    if(docs[i].dataValues.Name!==null)
-                                        +docs(docs[i].dataValues.id,
-                                        docs[i].dataValues.Name,
-                                        docs[i].DocType.dataValues.Name,
-                                        docs[i].dataValues.Date,
-                                        docs[i].User.dataValues.FirstName + " " + docs[i].User.dataValues.SecondName,
-                                        docs[i].dataValues.Text,
-                                        docs[i].dataValues.Number,
-                                        docs[i].DocSigners)
-                            .card-footer.border-top
+                                .blog-comments__item.d-flex.p-3
+                                    .blog-comments__avatar.mr-3
+                                        img(src='images/avatars/1.jpg' alt='User avatar')
+                                    .blog-comments__content
+                                        .blog-comments__meta.text-muted
+                                            .text-secondary #{docs.User.dataValues.FirstName + " " + docs.User.dataValues.SecondName}
+                                            | создал #{docs.DocType.dataValues.Name} #{docs.dataValues.Number} от #{formatDate(docs.dataValues.Date)}
+                                            //span.text-muted &ndash; 2 дня назад
+                                        p.m-0.my-1.mb-2.text-muted #{docs.dataValues.Name}
+                                        p.m-0.my-1.mb-2 #{docs.dataValues.Text}
+                                        .blog-comments__actions
+                                            -for (let j = 0; j < docs.DocSigners.length; j++)
+                                                +signers(docs.DocSigners[j].dataValues.id,
+                                                    docs.DocSigners[j].User.dataValues.FirstName,
+                                                    docs.DocSigners[j].User.dataValues.SecondName,
+                                                    docs.DocSigners[j].SignedStatus.dataValues.Name,
+                                                    docs.DocSigners[j].dataValues.Comment)
+                                            button.mb-2.btn.btn-sm.btn-primary.mr-1(id="Print"
+                                                title='Распечатать' ) Распечатать
+                            //.card-footer.border-top
 
             footer.main-footer.d-flex.p-2.px-3.bg-white.border-top
                 ul.nav
@@ -150,3 +141,4 @@ script(src='https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.
 script(src='scripts/extras.1.1.0.min.js')
 script(src='scripts/shards-dashboards.1.1.0.min.js')
 script(src='scripts/app/app-blog-overview.1.1.0.js')
+- function formatDate(date) {var dd = date.getDate(); if (dd < 10) dd = '0' + dd; var mm = date.getMonth() + 1; if (mm < 10) mm = '0' + mm; var yyyy = date.getFullYear() ; return dd + '.' + mm + '.' + yyyy;}
