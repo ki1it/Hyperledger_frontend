@@ -18,29 +18,29 @@ head
             td #{name}
             td #{numb}
 
-    #myModal3.modal.fade(role='dialog')
-        .modal-dialog.modal-lg
-            .modal-content
-                .modal-header
-                    h4.modal-title Добавление подписанта
-                    button.close(type='button', data-dismiss='modal') ×
-                .modal-body
-                    ul.list-group.list-group-flush
-                        form(action="/addDocument/addSigner?ID=" + document.dataValues.id, method="post" class="form" id='addSi' enctype="application/json")
-                            li.list-group-item.p-3
-                                .row
-                                    .col-sm-12
-                                        strong.text-muted.d-block.mb-2 ФИО
-                                            .form-group
-                                                input.form-control(type='text' list='users' name="inputName")
-                                                datalist#users
-                                                    -for (let i = 0; i < users.length; i++)
-                                                        option(value=users[i].dataValues.FirstName + " "+ users[i].dataValues.SecondName)
-                                    .col-lg-12.mb-4
-                                        .row
-                                            .col
-                                                a.nav-link(href='addDocument')
-                                                    button.btn.btn-primary.btn-lg.btn-block(id='AddSigner' type="submit") Добавить
+    //#myModal3.modal.fade(role='dialog')
+    //    .modal-dialog.modal-lg
+    //        .modal-content
+    //            .modal-header
+    //                h4.modal-title Добавление подписанта
+    //                button.close(type='button', data-dismiss='modal') ×
+    //            .modal-body
+    //                ul.list-group.list-group-flush
+    //                    form(action="/addDocument/addSigner?ID=" + document.dataValues.id, method="post" class="form" id='addSi' enctype="application/json")
+    //                        li.list-group-item.p-3
+    //                            .row
+    //                                .col-sm-12
+    //                                    strong.text-muted.d-block.mb-2 ФИО
+    //                                        .form-group
+    //                                            input.form-control(type='text' list='users' name="inputName")
+    //                                            datalist#users
+    //                                                -for (let i = 0; i < users.length; i++)
+    //                                                    option(value=users[i].dataValues.FirstName + " "+ users[i].dataValues.SecondName)
+    //                                .col-lg-12.mb-4
+    //                                    .row
+    //                                        .col
+    //                                            a.nav-link(href='addDocument')
+    //                                                button.btn.btn-primary.btn-lg.btn-block(id='AddSigner' type="submit") Добавить
 .container-fluid
     .row
         // Main Sidebar
@@ -142,7 +142,7 @@ head
                         // Add New Post Form
                         .card.card-small.mb-3
                             .card-body
-                                form.add-new-post(action="/addDocument/add?id="+document.dataValues.id, method="post" class="form" id='addClient' enctype="application/json")
+                                form.add-new-post(action="/addDocument/add" , method="post" class="form" id='addClient' enctype="application/json")
                                     li.list-group-item.p-3
                                         .row
                                             .col-sm-12
@@ -151,80 +151,64 @@ head
                                                         .col-sm-12.col-md-4
                                                             strong.text-muted.d-block.mb-2 Номер
                                                                 .form-group
-                                                                    if(document.dataValues.Number == null)
-                                                                        input#inputNum.form-control(name="inputNum" type="number" required=true)
-                                                                    else
-                                                                        input#inputNum.form-control(name="inputNum" type="number" ,value = document.dataValues.Number)
+                                                                    input#inputNum.form-control(name="inputNum" type="number")
                                                                     //input.form-control(type='text' name="inputNum")
                                                         .col-sm-12.col-md-4
                                                             strong.text-muted.d-block.mb-2 Дата
                                                                 .form-group
-                                                                    if(document.dataValues.Date == null)
-                                                                        input.form-control(name="inputDate" type="date" required=true)
-                                                                    else
-                                                                        input.form-control(name="inputDate" type="date" ,value = formatDate(document.dataValues.Date))
+                                                                    input.form-control(name="inputDate" type="date" required=true)
                                                                     //input.form-control(type='date' name="inputDate")
                                                         .col-sm-12
                                                             strong.text-muted.d-block.mb-2 Тип
                                                                 .form-group
-                                                                    if(document.dataValues.TypeFK == null)
-                                                                        input#inputType.form-control(type='text' list='types' name="inputType")
-                                                                        datalist#types
-                                                                            -for (let i = 0; i < type.length; i++)
-                                                                                if((position===2 && i===1) || (position===5 && i===2) || (i!==2 && position!==2))
-                                                                                    option(value=type[i].dataValues.Name)
-                                                                    else
-                                                                        input#inputType.form-control(type='text' list='types' name="inputType" value=document.dataValues.DocType.dataValues.Name)
-                                                                        datalist#types
-                                                                            -for (let i = 0; i < type.length; i++)
-                                                                                option(value=type[i].dataValues.Name)
+                                                                    input#inputType.form-control(type='text' list='types' name="inputType")
+                                                                    datalist#types
+                                                                        option(value='Приказ на практику')
+                                                                        option(value='Приказ об отчислении')
                                                                     //input#ei.form-control(type='text' list='types' name="inputType")
                                                                     //datalist#types
                                                                     //    -for (let i = 0; i < type.length; i++)
                                                                     //        option(value=type[i].dataValues.Name)
-                                            .col-sm-12
-                                                strong.text-muted.d-block.mb-2 Название
-                                                    .form-group
-                                                        if(document.dataValues.Name == null)
-                                                            input.form-control(name="inputName" type="text" required=true)
-                                                        else
-                                                            input.form-control(name="inputName" type="text" ,value = document.dataValues.Name)
-                                                        //input.form-control(type='text' name="inputName" )
+                                            //.col-sm-12
+                                            //    strong.text-muted.d-block.mb-2 Название
+                                            //        .form-group
+                                            //            if(document.dataValues.Name == null)
+                                            //                input.form-control(name="inputName" type="text" required=true)
+                                            //            else
+                                            //                input.form-control(name="inputName" type="text" ,value = document.dataValues.Name)
+                                            //            //input.form-control(type='text' name="inputName" )
                                             .col-sm-12
 
                                                 strong.text-muted.d-block.mb-2 Текст
                                                     .form-group
                                                         //input.form-control(type='text' name="inputBD")
-                                                        if(document.dataValues.Text == null)
-                                                            textarea.form-control(name="inputText" cols='103%' )
-                                                        else
-                                                            textarea.form-control(name="inputText" cols='103%' ) #{document.dataValues.Text}
+                                                        textarea.form-control(name="inputText" cols='103%' )
                                                         //textarea.form-control(name="inputText" rows=10 )
-                                                strong.d-block.mb-2 Пожалуйста, заполните все поля перед добавлением подписантов.
-                                            .col-lg-12.mb-4
-                                                .row
-                                                    .col
-                                                        .card.card-small.mb-4
-                                                            .card-header.border-bottom
-                                                                .row
-                                                                    .col-sm-12.col-md-11
-                                                                        h6.m-0 Подписанты
-                                                                    .col-sm-12.col-md-1
-                                                                        button.mb-2.btn.btn-sm.btn-primary.mr-1(id="createNewSigner"
-                                                                            title='Добавить подписанта' formaction="/addDocument/save?id="+document.dataValues.id type="submit", data-toggle='modal', data-target='#myModal3') +
-                                                            .card-body.p-0.pb-3.text-center
-                                                                table#tab1.table.mb-0
-                                                                    thead.bg-light.text-primary
-                                                                        tr
-                                                                            th.border-0(scope='col') #
-                                                                            th.border-0(scope='col') Имя
-                                                                            th.border-0(scope='col') Фамилия
-                                                                    tbody
-                                                                        if(signers !== undefined)
-                                                                             -for (let i = 0; i < signers.length; i++)
-                                                                                 +rowsTable(signers[i].dataValues.id,
-                                                                                     signers[i].User.dataValues.FirstName,
-                                                                                     signers[i].User.dataValues.SecondName)
+                                            //    strong.d-block.mb-2 Пожалуйста, заполните все поля перед добавлением подписантов.
+                                            //.col-lg-12.mb-4
+                                            //    .row
+                                            //        .col
+                                            //            .card.card-small.mb-4
+                                            //                .card-header.border-bottom
+                                            //                    .row
+                                            //                        .col-sm-12.col-md-11
+                                            //                            h6.m-0 Подписанты
+                                            //                        .col-sm-12.col-md-1
+                                            //                            button.mb-2.btn.btn-sm.btn-primary.mr-1(id="createNewSigner"
+                                            //                                title='Добавить подписанта' formaction="/addDocument/save?id="+document.dataValues.id type="submit", data-toggle='modal', data-target='#myModal3') +
+                                            //                .card-body.p-0.pb-3.text-center
+                                            //                    table#tab1.table.mb-0
+                                            //                        thead.bg-light.text-primary
+                                            //                            tr
+                                            //                                th.border-0(scope='col') #
+                                            //                                th.border-0(scope='col') Имя
+                                            //                                th.border-0(scope='col') Фамилия
+                                            //                        tbody
+                                            //                            if(signers !== undefined)
+                                            //                                 -for (let i = 0; i < signers.length; i++)
+                                            //                                     +rowsTable(signers[i].dataValues.id,
+                                            //                                         signers[i].User.dataValues.FirstName,
+                                            //                                         signers[i].User.dataValues.SecondName)
                                             .col-lg-12.mb-4
                                                 .row
                                                     .col

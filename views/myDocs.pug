@@ -116,16 +116,21 @@ head
                             .card-header.border-bottom
                                 h6.m-0 Документы и их статус
                             .card-body.p-0
-                                -for (let i = 0; i < docs.length; i++)
-                                    if(docs[i].dataValues.Name!==null)
-                                        +docs(docs[i].dataValues.id,
-                                        docs[i].dataValues.Name,
-                                        docs[i].DocType.dataValues.Name,
-                                        docs[i].dataValues.Date,
-                                        docs[i].User.dataValues.FirstName + " " + docs[i].User.dataValues.SecondName,
-                                        docs[i].dataValues.Text,
-                                        docs[i].dataValues.Number,
-                                        docs[i].DocSigners)
+                                .blog-comments__item.d-flex.p-3
+                                    .blog-comments__content
+                                        //p.m-0.my-1.mb-2 #{Text}
+                                        .blog-comments__actions
+                                            #{docs}
+                                // -for (let i = 0; i < docs.length; i++)
+                                //     if(docs[i].dataValues.Name!==null)
+                                //         +docs(docs[i].dataValues.id,
+                                //         docs[i].dataValues.Name,
+                                //         docs[i].DocType.dataValues.Name,
+                                //         docs[i].dataValues.Date,
+                                //         docs[i].User.dataValues.FirstName + " " + docs[i].User.dataValues.SecondName,
+                                //         docs[i].dataValues.Text,
+                                //         docs[i].dataValues.Number,
+                                //         docs[i].DocSigners)
                             .card-footer.border-top
 
             footer.main-footer.d-flex.p-2.px-3.bg-white.border-top

@@ -16,6 +16,12 @@ const  UserLogin = sequelize.define('UserLogin', {
     Photo: {
         type: Sequelize.TEXT,
     },
+    Role: {
+        type: Sequelize.TEXT,
+    },
+    University: {
+        type: Sequelize.TEXT,
+    }
 });
 
 module.exports = UserLogin;
