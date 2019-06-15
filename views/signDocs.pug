@@ -17,7 +17,7 @@ head
     link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
     script(async='' defer='' src='https://buttons.github.io/buttons.js')
     - var i=0;
-        mixin notif(ID, Name, Type, Date, Author, Text, DocId)
+        mixin notif(ID, Type, Date, Author, Text, Signers, NotSigners, Status)
             .blog-comments__item.d-flex.p-3
                 .blog-comments__avatar.mr-3
                     img(src='images/avatars/1.jpg' alt='User avatar')
@@ -25,17 +25,32 @@ head
                     .blog-comments__meta.text-muted
                         a.text-secondary(href='#') #{Author}
                         |  создал
-                        a.text-secondary(href='#')  #{' '+Type}
+                        if(Type==='ORDER_TO_PRACTICE')
+                            a.text-secondary  #{' Приказ на практику '}
+                        if(Type === 'ORDER_OF_EXPULSION')
+                            a.text-secondary  #{' Приказ об отчислении '}
+                        | от #{Date}
+                        p.m-0.my-1.mb-2 Статус документа: #{Status}
                         //span.text-muted &ndash; 2 дня назад
-                    p.m-0.my-1.mb-2.text-muted #{Name}
-                    p.m-0.my-1.mb-2 #{Text}
+                    //p.m-0.my-1.mb-2.text-muted #{Name}
+                    details
+                        summary Текст документа
+                        p.m-0.my-1.mb-2 #{Text}
+                    details
+                        summary Информация о подписантах
+                        p.m-0.my-1.mb-2 Подписали
+                            -for (let j = 0; j < Signers.length; j++)
+                                .m-0 #{Signers[j]}
+                        p.m-0.my-1.mb-2 Еще не подписали
+                            -for (let j = 0; j < NotSigners.length; j++)
+                                .m-0 #{NotSigners[j]}
                     .blog-comments__actions
                         .btn-group.btn-group-sm
-                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/signdoc', data: {UserId:" + userid + ", DocId:" + DocId + "} }); location.reload();")
+                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/signdoc', data: {UserId:" + userid + ", DocId:" + ID + "} }); location.reload();")
                                 span.text-success
                                     i.material-icons check
                                 |  Подписать
-                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/unsigndoc', data: {UserId:" + userid + ", DocId:" + DocId + "} }); location.reload();")
+                            button.btn.btn-white(type='button' onclick="$.ajax({type: 'POST', url: '/signdocs/unsigndoc', data: {UserId:" + userid + ", DocId:" + ID + "} }); location.reload();")
                                 span.text-danger
                                     i.material-icons clear
                                 |  Отклонить
@@ -125,13 +140,14 @@ head
                         h6.m-0 Документы на подпись
                     .card-body.p-0
                         -for (let i = 0; i < notif.length; i++)
-                            +notif(notif[i].dataValues.id,
-                                notif[i].Document.dataValues.Name,
-                                notif[i].Document.DocType.dataValues.Name,
-                                notif[i].Document.dataValues.Date,
-                                notif[i].Document.User.dataValues.FirstName + " " + notif[i].Document.User.dataValues.SecondName,
-                                notif[i].Document.dataValues.Text,
-                                notif[i].Document.dataValues.id)
+                            +notif(notif[i].documentId,
+                                notif[i].type,
+                                notif[i].date,
+                                notif[i].applicantName.name + ' ' + notif[i].applicantName.lastName,
+                                notif[i].text,
+                                notif[i].whosigned,
+                                notif[i].whonotsigned,
+                                notif[i].status)
                     .card-footer.border-top
 
                     // End Discussions Component

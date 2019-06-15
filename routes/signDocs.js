@@ -9,6 +9,8 @@ const DocType = require('../database/models/DocType')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 const fetch = require("node-fetch")
+let funcs = require('../commonfunc')
+var _ = require('lodash');
 
 /* GET home page. */
 router.get('/',async function(req, res, next) {
@@ -27,8 +29,6 @@ router.get('/',async function(req, res, next) {
     //     .catch((err) => {
     //         console.log(err)
     //     })
-    let response
-    response = await fetch(process.env.API_IP+'api/Document?filter='+encodeURIComponent('{"include": {"signers":"'+req.session.user.Role+'"}}'),{ method: 'GET'})
     // if (req.session.user.Role === "resource:org.example.doc.Teacher#1"){
     //     // response = await fetch(process.env.API_IP+'api/Document?filter=%7B%22where%22%3A%20%7B%22applicant%22%3A%22resource%3Aorg.example.doc.Teacher%231%22%7D%7D',{ method: 'GET'})
     //     response = await fetch(process.env.API_IP+'api/Document?filter='+encodeURIComponent('{"where": {"applicant":"resource:org.example.doc.Teacher#1"}}'),{ method: 'GET'})
@@ -37,11 +37,26 @@ router.get('/',async function(req, res, next) {
     //
     //     response = await fetch(process.env.API_IP+'api/Document?filter=%7B%22where%22%3A%20%7B%22applicant%22%3A%22resource%3Aorg.example.doc.Head_of_department%231%22%7D%7D',{ method: 'GET'})
     // }
-
+    let response
+    response = await fetch(process.env.API_IP+'api/Document?filter='+encodeURIComponent('{"include": {"signers":"'+req.session.user.Role+'"}}'),{ method: 'GET'})
     let resu = await response.json()
-    let str = JSON.stringify(resu)
-    res.render('signDocs', {
+    for (let i = 0; i < resu.length; i++){
+        resu[i].applicantName = await funcs.getParticipantName(resu[i].applicant)
+        resu[i].whosigned = _.intersection(resu[0].signers, resu[0].approval);
+        for (let j = 0; j < resu[i].whosigned.length; j++){
+            let name = await funcs.getParticipantName(resu[i].whosigned[j])
+            resu[i].whosigned[j] = name.name
+        }
+        resu[i].whonotsigned = _.difference(resu[0].signers, resu[0].approval);
+        for (let j = 0; j < resu[i].whonotsigned.length; j++){
+            let name = await funcs.getParticipantName(resu[i].whonotsigned[j])
+            resu[i].whonotsigned[j] = name.name
+        }
+    }
 
+    // let str = JSON.stringify(resu)
+    res.render('signDocs', {
+        notif: resu,
         userid:req.session.user.UserFK,
         username: req.session.user.User.FirstName + ' ' + req.session.user.User.SecondName,
         position: req.session.user.User.Position.id,
@@ -51,17 +66,20 @@ router.get('/',async function(req, res, next) {
 
 router.post('/signdoc', async function (req, res) {
 
-     await DocSigners.update({
-        SignedFK: 1
-    },{
-         where: {
-             [Op.and]: [{DocumentFK: req.body.DocId}, {UserFK: req.body.UserId}]
-
-         }
-     })
-        .catch((err) => {
-            console.log(err)
-        })
+    //  await DocSigners.update({
+    //     SignedFK: 1
+    // },{
+    //      where: {
+    //          [Op.and]: [{DocumentFK: req.body.DocId}, {UserFK: req.body.UserId}]
+    //
+    //      }
+    //  })
+    //     .catch((err) => {
+    //         console.log(err)
+    //     })
+    let response
+    response = await fetch(process.env.API_IP+'api/Document?filter='+encodeURIComponent('{"include": {"signers":"'+req.session.user.Role+'"}}'),{ method: 'GET'})
+    let resu = await response.json()
     res.redirect(req.get('referer'));
 
 })
