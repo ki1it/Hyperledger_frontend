@@ -2,19 +2,19 @@ var express = require('express');
 var router = express.Router();
 
 var moment = require('moment');
-const Document = require('../database/models/Document')
-const DocSigners = require('../database/models/DocSigners')
-const User = require('../database/models/User')
-const SignedStatus = require('../database/models/SignedStatus')
-const Position = require('../database/models/Position')
-const DocType = require('../database/models/DocType')
+const Document = require('../database/models/Document');
+const DocSigners = require('../database/models/DocSigners');
+const User = require('../database/models/User');
+const SignedStatus = require('../database/models/SignedStatus');
+const Position = require('../database/models/Position');
+const DocType = require('../database/models/DocType');
 const fetch = require("node-fetch");
-let funcs = require('../commonfunc')
+let funcs = require('../commonfunc');
 /* GET home page. */
 router.get('/',async function(req, res, next) {
-    let document
+    let document;
     if (req.session.user === undefined) {
-        res.redirect('/login')
+        res.redirect('/login');
         return
     }
     // if (req.query.ID === "" || req.query.ID === undefined) {
@@ -46,8 +46,8 @@ router.get('/',async function(req, res, next) {
     //         console.log(err)
     //     })
 
-    let type = await DocType.findAll()
-    let users = await User.findAll()
+    let type = await DocType.findAll();
+    let users = await User.findAll();
     res.render('addDocument',
         {
             document: document,
@@ -60,13 +60,13 @@ router.get('/',async function(req, res, next) {
 
 
 router.post('/add', async function (req, res) {
-    let number = Math.floor(Math.random()*1000+Math.random()*100)
+    let number = Math.floor(Math.random()*1000+Math.random()*100);
     if (req.body.inputAssignedDoc!=='')
     {
-        let resp = await fetch(process.env.API_IP+'api/Document/'+req.body.inputAssignedDoc,{ method: 'GET'})
-        let result = await resp.json()
-        result.assignedDocs.push(number)
-        delete result.documentId
+        let resp = await fetch(process.env.API_IP+'api/Document/'+req.body.inputAssignedDoc,{ method: 'GET'});
+        let result = await resp.json();
+        result.assignedDocs.push(number);
+        delete result.documentId;
         let change = await fetch(process.env.API_IP+"api/Document/"+req.body.inputAssignedDoc,{ method: 'PUT',headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -84,14 +84,14 @@ router.post('/add', async function (req, res) {
         changes: [],
         type: "ORDER_TO_PRACTICE"
 
-    }
+    };
     var body = JSON.stringify(data);
     let response = await fetch(process.env.API_IP+"api/InitialApplicationDocument",{ method: 'POST',headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body:body} )
-    let resu = await response.json()
+        body:body} );
+    let resu = await response.json();
     // let type = await DocType.findOne({
     //     where:{Name: req.body.inputType}
     // })
@@ -112,7 +112,7 @@ router.post('/add', async function (req, res) {
     //     })
     res.redirect('/myDocs')
 
-})
+});
 
 
 // router.post('/add', async function (req, res) {
