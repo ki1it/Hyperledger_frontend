@@ -40,6 +40,15 @@ router.get('/',async function(req, res, next) {
     let response
     response = await fetch(process.env.API_IP+'api/Document?filter='+encodeURIComponent('{"include": {"signers":"'+req.session.user.Role+'"}}'),{ method: 'GET'})
     let resu = await response.json()
+
+    let filtered = await _.filter(resu, { 'status': 'AWAITING_APPROVAL'});
+    resu = filtered
+    let filtered1 = []
+    for(props in resu) {
+        if(_.includes(resu[props].approval, req.session.user.Role)===false) { filtered1.push(resu[props]) }
+    }
+
+    resu = filtered1
     for (let i = 0; i < resu.length; i++){
         resu[i].applicantName = await funcs.getParticipantName(resu[i].applicant)
         resu[i].whosigned = _.intersection(resu[0].signers, resu[0].approval);
@@ -77,8 +86,20 @@ router.post('/signdoc', async function (req, res) {
     //     .catch((err) => {
     //         console.log(err)
     //     })
-    let response
-    response = await fetch(process.env.API_IP+'api/Document?filter='+encodeURIComponent('{"include": {"signers":"'+req.session.user.Role+'"}}'),{ method: 'GET'})
+    var data = {
+        $class: "org.example.doc.Approve",
+        doc: "resource:org.example.doc.Document#"+req.body.DocId,
+        approvingParty: req.session.user.Role
+
+
+
+    }
+    var body = JSON.stringify(data);
+    let response = await fetch(process.env.API_IP+"api/Approve",{ method: 'POST',headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body:body} )
     let resu = await response.json()
     res.redirect(req.get('referer'));
 
