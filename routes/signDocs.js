@@ -107,34 +107,64 @@ router.post('/signdoc', async function (req, res) {
 
 router.post('/unsigndoc', async function (req, res) {
 
-    await DocSigners.update({
-        SignedFK: 2
-    },{
-        where: {
-            [Op.and]: [{DocumentFK: req.body.DocId}, {UserFK: req.body.UserId}]
+    // await DocSigners.update({
+    //     SignedFK: 2
+    // },{
+    //     where: {
+    //         [Op.and]: [{DocumentFK: req.body.DocId}, {UserFK: req.body.UserId}]
+    //
+    //     }
+    // })
+    //     .catch((err) => {
+    //         console.log(err)
+    //     })
+    var data = {
+        $class: "org.example.doc.Reject",
+        doc: "resource:org.example.doc.Document#"+req.body.DocId,
+        approvingParty: req.session.user.Role
 
-        }
-    })
-        .catch((err) => {
-            console.log(err)
-        })
+
+
+    }
+    var body = JSON.stringify(data);
+    let response = await fetch(process.env.API_IP+"api/Reject",{ method: 'POST',headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body:body} )
+    let resu = await response.json()
     res.redirect(req.get('referer'));
 
 })
 router.post('/comment', async function (req, res) {
 
-    await DocSigners.update({
-        SignedFK: 3,
-        Comment: req.body.Comment
-    },{
-        where: {
-            [Op.and]: [{DocumentFK: req.body.DocId}, {UserFK: req.body.UserId}]
+    // await DocSigners.update({
+    //     SignedFK: 3,
+    //     Comment: req.body.Comment
+    // },{
+    //     where: {
+    //         [Op.and]: [{DocumentFK: req.body.DocId}, {UserFK: req.body.UserId}]
+    //
+    //     }
+    // })
+    //     .catch((err) => {
+    //         console.log(err)
+    //     })
+    var data = {
+        $class: "org.example.doc.SuggestChanges",
+        doc: "resource:org.example.doc.Document#"+req.body.DocId,
+        approvingParty: req.session.user.Role
 
-        }
-    })
-        .catch((err) => {
-            console.log(err)
-        })
+
+
+    }
+    var body = JSON.stringify(data);
+    let response = await fetch(process.env.API_IP+"api/SuggestChanges",{ method: 'POST',headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body:body} )
+    let resu = await response.json()
     res.redirect(req.get('referer'));
 
 })
