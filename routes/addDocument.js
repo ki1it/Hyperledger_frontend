@@ -60,9 +60,18 @@ router.get('/',async function(req, res, next) {
 
 
 router.post('/add', async function (req, res) {
+    let number = Math.floor(Math.random()*1000+Math.random()*100)
+    if (req.body.inputAssignedDoc!=='')
+    {
+        let resp = await fetch(process.env.API_IP+'api/Document/'+req.body.inputAssignedDoc,{ method: 'GET'})
+        let result = await resp.json()
+        result.assignedDocs.push(number)
+        delete result.documentId
+
+    }
     var data = {
         $class: "org.example.doc.InitialApplicationDocument",
-        documentId: Math.floor(Math.random()*1000+Math.random()*100),
+        documentId: number,
         applicant: req.session.user.Role,
         university: req.session.user.University,
         date: funcs.formatDate(new Date(req.body.inputDate)),
