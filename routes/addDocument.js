@@ -67,7 +67,13 @@ router.post('/add', async function (req, res) {
         let result = await resp.json()
         result.assignedDocs.push(number)
         delete result.documentId
-
+console.log(result)
+        let change = await fetch(process.env.API_IP+"api/Document/"+req.body.inputAssignedDoc,{ method: 'PUT',headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: await JSON.stringify(result)} )
+        console.log(change)
     }
     var data = {
         $class: "org.example.doc.InitialApplicationDocument",
