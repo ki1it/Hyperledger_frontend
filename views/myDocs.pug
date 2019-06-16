@@ -30,6 +30,10 @@ head
                         | от #{Date+' '}
                         | № #{ID}
                         p.m-0.my-1.mb-2 Статус документа: #{Status}
+                        if(Assigned.length!==0)
+                            p.m-0.my-1.mb-2 Изменения в документах:
+                                -for (let j = 0; j < Assigned.length; j++)
+                                    .m-0 #{Assigned[j]}
                         //span.text-muted &ndash; 2 дня назад
                     //p.m-0.my-1.mb-2.text-muted #{Name}
                     details
@@ -134,7 +138,7 @@ head
                                             +notif(docs[i].documentId,
                                                 docs[i].type,
                                                 docs[i].date,
-                                                docs[i].applicantName.name + ' ' + docs[i].applicantName.lastName,
+                                                docs[i].applicantName.name,
                                                 docs[i].text,
                                                 docs[i].whosigned,
                                                 docs[i].whonotsigned,
