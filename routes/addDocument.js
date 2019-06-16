@@ -95,7 +95,7 @@ router.post('/add', async function (req, res) {
     //     .catch((err) => {
     //         console.log(err)
     //     })
-    console.log(resu)
+    res.send(resu)
     res.redirect('/myDocs')
 
 })

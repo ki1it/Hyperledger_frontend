@@ -60,24 +60,26 @@ head
                     //input.navbar-search.form-control(type='text' placeholder='Search for something...' aria-label='Search')
             .nav-wrapper
                 ul.nav.flex-column
-                    if(position !== 2)
-                        li.nav-item
-                            a.nav-link(href='signDocs')
-                                i.material-icons vertical_split
-                                span Документы на подпись
                     li.nav-item
-                        a.nav-link.active(href='myDocs')
+                        a.nav-link(href='signDocs')
+                            i.material-icons vertical_split
+                            span Документы на подпись
+                    li.nav-item
+                        a.nav-link(href='myDocs')
                             i.material-icons table_chart
                             span Мои документы
-                    if(position !== 5)
-                        li.nav-item
-                            a.nav-link(href='addDocument')
-                                i.material-icons note_add
-                                span Создать документ
+                    li.nav-item
+                        a.nav-link(href='addDocument')
+                            i.material-icons note_add
+                            span Создать документ
                     li.nav-item
                         a.nav-link(href='userProfile')
                             i.material-icons person
                             span Мой профиль
+                    li.nav-item
+                        a.nav-link.active(href='history')
+                            i.material-icons history
+                            span История транзакций
         // End Main Sidebar
         main.main-content.col-lg-10.col-md-9.col-sm-12.p-0.offset-lg-2.offset-md-3
             .main-navbar.sticky-top.bg-white
@@ -108,30 +110,19 @@ head
                 .page-header.row.no-gutters.py-4
                     .col-12.col-sm-4.text-center.text-sm-left.mb-0
                         //span.text-uppercase.page-subtitle Dashboard
-                        h3.page-title Мои документы
+                        h3.page-title История транзакций
 
                 .row
 
                     .col-lg-5.col-md-12.col-sm-12.mb-4
                         .card.card-small.blog-comments
-                            .card-header.border-bottom
-                                h6.m-0 Документы и их статус
+
                             .card-body.p-0
                                 .blog-comments__item.d-flex.p-3
                                     .blog-comments__content
-                                        //p.m-0.my-1.mb-2 #{Text}
-                                        .blog-comments__actions
-                                            #{docs}
-                                // -for (let i = 0; i < docs.length; i++)
-                                //     if(docs[i].dataValues.Name!==null)
-                                //         +docs(docs[i].dataValues.id,
-                                //         docs[i].dataValues.Name,
-                                //         docs[i].DocType.dataValues.Name,
-                                //         docs[i].dataValues.Date,
-                                //         docs[i].User.dataValues.FirstName + " " + docs[i].User.dataValues.SecondName,
-                                //         docs[i].dataValues.Text,
-                                //         docs[i].dataValues.Number,
-                                //         docs[i].DocSigners)
+                                        pre
+                                            code
+                                                #{history}
                             .card-footer.border-top
 
             footer.main-footer.d-flex.p-2.px-3.bg-white.border-top

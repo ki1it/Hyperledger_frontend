@@ -101,6 +101,7 @@ router.post('/signdoc', async function (req, res) {
         },
         body:body} )
     let resu = await response.json()
+    res.send('hi')
     res.redirect(req.get('referer'));
 
 })
