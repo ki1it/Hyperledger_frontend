@@ -152,6 +152,13 @@ router.post('/comment', async function (req, res) {
     //     })
     var data = {
         $class: "org.example.doc.SuggestChanges",
+        changes: [
+            {
+                $class: "org.example.doc.Change",
+                changeId: req.body.DocId+ '_'+  Math.floor(Math.random()*1000+Math.random()*100),
+                changeText: req.body.Comment
+            }
+            ],
         doc: "resource:org.example.doc.Document#"+req.body.DocId,
         approvingParty: req.session.user.Role
 
