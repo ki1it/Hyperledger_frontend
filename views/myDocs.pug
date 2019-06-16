@@ -17,28 +17,37 @@ head
     link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
     script(async='' defer='' src='https://buttons.github.io/buttons.js')
     - var i=0;
-        mixin signers(id, FName, SName, Status, Comment)
-            p.m-0.my-1.mb-2.text-muted #{FName} #{SName}
-                span.font-weight-bold  #{Status}
-                |  #{Comment}
-        mixin docs(id, Name, Type, Date, Author,Text, Num, Signers)
+        mixin notif(ID, Type, Date, Author, Text, Signers, NotSigners, Status, Changes, Assigned)
             .blog-comments__item.d-flex.p-3
-                .blog-comments__avatar.mr-3
-                    img(src='images/avatars/1.jpg' alt='User avatar')
                 .blog-comments__content
                     .blog-comments__meta.text-muted
-                        .text-secondary #{Author} создал #{Type} № #{Num}
+                        a.text-secondary(href='#') #{Author}
+                        |  создал
+                        if(Type === 'ORDER_TO_PRACTICE')
+                            a.text-secondary  #{' Приказ на практику '}
+                        if(Type === 'ORDER_OF_EXPULSION')
+                            a.text-secondary  #{' Приказ об отчислении '}
+                        | от #{Date+' '}
+                        | № #{ID}
+                        p.m-0.my-1.mb-2 Статус документа: #{Status}
                         //span.text-muted &ndash; 2 дня назад
-                    p.m-0.my-1.mb-2.text-muted #{Name}
-                    //p.m-0.my-1.mb-2 #{Text}
-                    .blog-comments__actions
-                        -for (let j = 0; j < Signers.length; j++)
-                            +signers(Signers[j].dataValues.id,
-                                Signers[j].User.dataValues.FirstName,
-                                Signers[j].User.dataValues.SecondName,
-                                Signers[j].SignedStatus.dataValues.Name,
-                                Signers[j].dataValues.Comment)
-                        a.mb-2.btn.btn-sm.btn-primary(id="Open" class=button href="/viewDoc?id="+id title='Посмотреть') Посмотреть
+                    //p.m-0.my-1.mb-2.text-muted #{Name}
+                    details
+                        summary Текст документа
+                        p.m-0.my-1.mb-2 #{Text}
+                    details
+                        summary Информация о подписантах
+                        p.m-0.my-1.mb-2 Подписали
+                            -for (let j = 0; j < Signers.length; j++)
+                                .m-0 #{Signers[j]}
+                        p.m-0.my-1.mb-2 Еще не подписали
+                            -for (let j = 0; j < NotSigners.length; j++)
+                                .m-0 #{NotSigners[j]}
+                    details
+                        summary Предложенные изменения
+                        p.m-0.my-1.mb-2
+                            -for (let j = 0; j < Changes.length; j++)
+                                .m-0 #{Changes[j].changeText}
 
 .container-fluid
     .row
@@ -49,7 +58,7 @@ head
                     a.navbar-brand.w-100.mr-0(href='#' style='line-height: 25px;')
                         .d-table.m-auto
                             img#main-logo.d-inline-block.align-top.mr-1(style='max-width: 25px;' src='images/shards-dashboards-logo.svg' alt='Shards Dashboard')
-                            span.d-none.d-md-inline.ml-1 АРМ Универ
+                            //span.d-none.d-md-inline.ml-1 АРМ Универ
                     a.toggle-sidebar.d-sm-inline.d-md-none.d-lg-none
                         i.material-icons &#xE5C4;
             form.main-sidebar__search.w-100.border-right.d-sm-flex.d-md-none.d-lg-none(action='#')
@@ -114,26 +123,24 @@ head
 
                 .row
 
-                    .col-lg-5.col-md-12.col-sm-12.mb-4
+                    .col-md-12.col-sm-12.mb-4
                         .card.card-small.blog-comments
                             .card-header.border-bottom
                                 h6.m-0 Документы и их статус
                             .card-body.p-0
                                 .blog-comments__item.d-flex.p-3
                                     .blog-comments__content
-                                        //p.m-0.my-1.mb-2 #{Text}
-                                        .blog-comments__actions
-                                            #{docs}
-                                // -for (let i = 0; i < docs.length; i++)
-                                //     if(docs[i].dataValues.Name!==null)
-                                //         +docs(docs[i].dataValues.id,
-                                //         docs[i].dataValues.Name,
-                                //         docs[i].DocType.dataValues.Name,
-                                //         docs[i].dataValues.Date,
-                                //         docs[i].User.dataValues.FirstName + " " + docs[i].User.dataValues.SecondName,
-                                //         docs[i].dataValues.Text,
-                                //         docs[i].dataValues.Number,
-                                //         docs[i].DocSigners)
+                                        -for (let i = 0; i < docs.length; i++)
+                                            +notif(docs[i].documentId,
+                                                docs[i].type,
+                                                docs[i].date,
+                                                docs[i].applicantName.name + ' ' + docs[i].applicantName.lastName,
+                                                docs[i].text,
+                                                docs[i].whosigned,
+                                                docs[i].whonotsigned,
+                                                docs[i].status,
+                                                docs[i].changes,
+                                                docs[i].assignedDocs)
                             .card-footer.border-top
 
             footer.main-footer.d-flex.p-2.px-3.bg-white.border-top

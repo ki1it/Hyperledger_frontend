@@ -57,10 +57,10 @@ head
                             button#commentShowButton.btn.btn-white(type='button' class='commentBut' data-id=ID)
                                 span.text-light
                                     i.material-icons more_vert
-                                |  Отклонить с комментарием
+                                |  Оставить комментарий
                     textarea(id='commentArea'+ID class='hideThis').m-0.my-1.mb-2
                     br
-                    button(id='commentSendButton'+ID class='hideThis' onclick="sendComment("+userid+','+ DocId+',' + ID+")").btn.btn-white
+                    button(id='commentSendButton'+ID class='hideThis' onclick="sendComment("+userid+','+ ID +")").btn.btn-white
                         span.text-success
                             i.material-icons comment
                         |  Отправить
@@ -74,7 +74,7 @@ head
                     a.navbar-brand.w-100.mr-0(href='#' style='line-height: 25px;')
                         .d-table.m-auto
                             img#main-logo.d-inline-block.align-top.mr-1(style='max-width: 25px;' src='images/shards-dashboards-logo.svg' alt='Shards Dashboard')
-                            span.d-none.d-md-inline.ml-1 АРМ Универ
+                            //span.d-none.d-md-inline.ml-1 АРМ Универ
                     a.toggle-sidebar.d-sm-inline.d-md-none.d-lg-none
                         i.material-icons &#xE5C4;
             form.main-sidebar__search.w-100.border-right.d-sm-flex.d-md-none.d-lg-none(action='#')

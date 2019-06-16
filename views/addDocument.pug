@@ -50,7 +50,7 @@ head
                     a.navbar-brand.w-100.mr-0(href='#' style='line-height: 25px;')
                         .d-table.m-auto
                             img#main-logo.d-inline-block.align-top.mr-1(style='max-width: 25px;' src='images/shards-dashboards-logo.svg' alt='Shards Dashboard')
-                            span.d-none.d-md-inline.ml-1 АРМ Универ
+                            //span.d-none.d-md-inline.ml-1 АРМ Универ
                     a.toggle-sidebar.d-sm-inline.d-md-none.d-lg-none
                         i.material-icons &#xE5C4;
             form.main-sidebar__search.w-100.border-right.d-sm-flex.d-md-none.d-lg-none(action='#')
@@ -159,6 +159,11 @@ head
                                                             strong.text-muted.d-block.mb-2 Дата
                                                                 .form-group
                                                                     input.form-control(name="inputDate" type="date" required=true)
+                                                                    //input.form-control(type='date' name="inputDate")
+                                                        .col-sm-12.col-md-4
+                                                            strong.text-muted.d-block.mb-2 Прикрепить к документу
+                                                                .form-group
+                                                                    input.form-control(name="inputAssignedDoc" type="number" )
                                                                     //input.form-control(type='date' name="inputDate")
                                                         .col-sm-12
                                                             strong.text-muted.d-block.mb-2 Тип

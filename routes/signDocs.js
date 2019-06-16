@@ -51,12 +51,12 @@ router.get('/',async function(req, res, next) {
     resu = filtered1
     for (let i = 0; i < resu.length; i++){
         resu[i].applicantName = await funcs.getParticipantName(resu[i].applicant)
-        resu[i].whosigned = _.intersection(resu[0].signers, resu[0].approval);
+        resu[i].whosigned = _.intersection(resu[i].signers, resu[i].approval);
         for (let j = 0; j < resu[i].whosigned.length; j++){
             let name = await funcs.getParticipantName(resu[i].whosigned[j])
             resu[i].whosigned[j] = name.name
         }
-        resu[i].whonotsigned = _.difference(resu[0].signers, resu[0].approval);
+        resu[i].whonotsigned = _.difference(resu[i].signers, resu[i].approval);
         for (let j = 0; j < resu[i].whonotsigned.length; j++){
             let name = await funcs.getParticipantName(resu[i].whonotsigned[j])
             resu[i].whonotsigned[j] = name.name
@@ -101,7 +101,7 @@ router.post('/signdoc', async function (req, res) {
         },
         body:body} )
     let resu = await response.json()
-    res.send('hi')
+    await new Promise(done => setTimeout(done, 50));
     res.redirect(req.get('referer'));
 
 })
@@ -122,7 +122,7 @@ router.post('/unsigndoc', async function (req, res) {
     var data = {
         $class: "org.example.doc.Reject",
         doc: "resource:org.example.doc.Document#"+req.body.DocId,
-        approvingParty: req.session.user.Role
+        closeReason:  await funcs.getParticipantName(req.session.user.Role)
 
 
 
@@ -161,7 +161,7 @@ router.post('/comment', async function (req, res) {
             }
             ],
         doc: "resource:org.example.doc.Document#"+req.body.DocId,
-        approvingParty: req.session.user.Role
+        suggestingParty: req.session.user.Role
 
 
 

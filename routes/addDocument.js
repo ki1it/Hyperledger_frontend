@@ -9,6 +9,7 @@ const SignedStatus = require('../database/models/SignedStatus')
 const Position = require('../database/models/Position')
 const DocType = require('../database/models/DocType')
 const fetch = require("node-fetch");
+let funcs = require('../commonfunc')
 /* GET home page. */
 router.get('/',async function(req, res, next) {
     let document
@@ -64,7 +65,7 @@ router.post('/add', async function (req, res) {
         documentId: Math.floor(Math.random()*1000+Math.random()*100),
         applicant: req.session.user.Role,
         university: req.session.user.University,
-        date: req.body.inputDate,
+        date: funcs.formatDate(new Date(req.body.inputDate)),
         text: req.body.inputText,
         changes: [],
         type: "ORDER_TO_PRACTICE"
@@ -95,7 +96,6 @@ router.post('/add', async function (req, res) {
     //     .catch((err) => {
     //         console.log(err)
     //     })
-    res.send(resu)
     res.redirect('/myDocs')
 
 })
