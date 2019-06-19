@@ -1,14 +1,8 @@
-//extends layout
-//
-//block content
-//  h1= title
-//  p Welcome to #{title}
 
 head
     meta(charset='utf-8')
     meta(http-equiv='x-ua-compatible' content='ie=edge')
-    title История транзакцийg
-    meta(name='description' content='A high-quality & free Bootstrap admin dashboard template pack that comes with lots of templates and components.')
+    title История транзакций
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
     link(href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
@@ -16,29 +10,25 @@ head
     link#main-stylesheet(rel='stylesheet' data-version='1.1.0' href='styles/shards-dashboards.1.1.0.min.css')
     link(rel='stylesheet' href='styles/extras.1.1.0.min.css')
     script(async='' defer='' src='https://buttons.github.io/buttons.js')
-    - var i=0;
-        mixin signers(id, FName, SName, Status, Comment)
-            p.m-0.my-1.mb-2.text-muted #{FName} #{SName}
-                span.font-weight-bold  #{Status}
-                |  #{Comment}
-        mixin docs(id, Name, Type, Date, Author,Text, Num, Signers)
-            .blog-comments__item.d-flex.p-3
-                .blog-comments__avatar.mr-3
-                    img(src='images/avatars/1.jpg' alt='User avatar')
-                .blog-comments__content
-                    .blog-comments__meta.text-muted
-                        .text-secondary #{Author} создал #{Type} № #{Num}
-                        //span.text-muted &ndash; 2 дня назад
-                    p.m-0.my-1.mb-2.text-muted #{Name}
-                    //p.m-0.my-1.mb-2 #{Text}
-                    .blog-comments__actions
-                        -for (let j = 0; j < Signers.length; j++)
-                            +signers(Signers[j].dataValues.id,
-                                Signers[j].User.dataValues.FirstName,
-                                Signers[j].User.dataValues.SecondName,
-                                Signers[j].SignedStatus.dataValues.Name,
-                                Signers[j].dataValues.Comment)
-                        a.mb-2.btn.btn-sm.btn-primary(id="Open" class=button href="/viewDoc?id="+id title='Посмотреть') Посмотреть
+    mixin notif(id, Type, Time, Event)
+        tr
+            td(title=id) #{id.substr(0, 8)}
+            td #{Type.split('.')[3]}
+            td #{Time}
+
+            td
+                if(Event[0]!==undefined)
+                    if(Event[0].doc!==undefined)
+                        | #{Event[0].doc.split('.')[3] }
+                    if(Event[0].approvingParty!==undefined)
+                        br
+                        | #{ Event[0].approvingParty.split('.')[3] }
+                    if(Event[0].suggestingParty!==undefined)
+                        br
+                        | #{ Event[0].suggestingParty.split('.')[3] }
+                    if(Event[0].changes !== undefined)
+                        br
+                        | Текст: #{ Event[0].changes[0].changeText}
 
 .container-fluid
     .row
@@ -113,16 +103,28 @@ head
                         h3.page-title История транзакций
 
                 .row
-
                     .col-md-12.col-sm-12.mb-4
                         .card.card-small.blog-comments
 
                             .card-body.p-0
-                                .blog-comments__item.d-flex.p-3
-                                    .blog-comments__content
-                                        pre
-                                            code
-                                                #{history}
+
+                                table.table.mb-0
+                                    thead.bg-light
+                                        tr
+                                            th.border-0(scope='col') Id
+                                            th.border-0(scope='col') Тип
+                                            th.border-0(scope='col') Время
+                                            th.border-0(scope='col') Доп информация
+                                    tbody
+                                        -for (let i = 0; i < history.length; i++)
+                                            +notif(history[i].transactionId,
+                                                history[i].transactionType,
+                                                history[i].transactionTimestamp,
+                                                history[i].eventsEmitted)
+                                    //.blog-comments__content
+                                    //    pre
+                                    //        code
+                                    //            #{history}
                             .card-footer.border-top
 
             footer.main-footer.d-flex.p-2.px-3.bg-white.border-top

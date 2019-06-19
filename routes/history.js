@@ -7,6 +7,7 @@ const SignedStatus = require('../database/models/SignedStatus');
 const Position = require('../database/models/Position');
 const DocType = require('../database/models/DocType');
 const fetch = require("node-fetch");
+var _ = require('lodash');
 // var querystring = require('querystring')
 /* GET home page. */
 router.get('/',async function(req, res, next) {
@@ -30,8 +31,9 @@ router.get('/',async function(req, res, next) {
     let str = await JSON.stringify(resu, null, 4);
     // let response = await fetch("http://172.16.49.142:3000/api/Document",{ method: 'GET', body: '{id:1}' })
     // let resu = await response.json()
+    var sort = _.reverse(_.sortBy(resu, "transactionTimestamp"))
     res.render('history', {
-        history:str,
+        history:sort,
         userid: req.session.user.UserFK,
         username: req.session.user.User.FirstName + ' ' + req.session.user.User.SecondName,
         position: req.session.user.User.Position.id,
