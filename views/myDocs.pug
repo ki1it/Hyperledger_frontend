@@ -134,7 +134,7 @@ head
                             .card-body.p-0
                                 .blog-comments__item.d-flex.p-3
                                     .blog-comments__content
-                                        -for (let i = 0; i < len; i++)
+                                        -for (let i = 0; i < docs.length; i++)
                                             +notif(docs[i].documentId,
                                                 docs[i].type,
                                                 docs[i].date,
