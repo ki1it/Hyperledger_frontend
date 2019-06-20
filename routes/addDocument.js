@@ -92,6 +92,8 @@ router.post('/add', async function (req, res) {
         },
         body:body} );
     let resu = await response.json();
+    let str = JSON.stringify(resu);
+    console.log(str)
     // let type = await DocType.findOne({
     //     where:{Name: req.body.inputType}
     // })
