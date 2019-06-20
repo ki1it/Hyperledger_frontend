@@ -49,6 +49,10 @@ router.get('/',async function(req, res, next) {
     }
 
     resu = filtered1;
+    if (resu.length>20)
+    {
+        resu =  resu.slice(0,20)
+    }
     for (let i = 0; i < resu.length; i++){
         resu[i].applicantName = await funcs.getParticipantName(resu[i].applicant);
         resu[i].whosigned = _.intersection(resu[i].signers, resu[i].approval);
