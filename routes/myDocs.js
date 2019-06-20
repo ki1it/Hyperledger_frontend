@@ -31,6 +31,10 @@ router.get('/',async function(req, res, next) {
     let response;
     response = await fetch(process.env.API_IP+'api/Document?filter='+encodeURIComponent('{"where": {"applicant":"'+req.session.user.Role+'"}}'),{ method: 'GET'});
     let resu = await response.json();
+    if (resu.length>20)
+    {
+        resu =  resu.slice(0,20)
+    }
     for (let i = 0; i < resu.length; i++){
         resu[i].applicantName = await funcs.getParticipantName(resu[i].applicant);
         resu[i].whosigned = _.intersection(resu[i].signers, resu[i].approval);
@@ -45,13 +49,8 @@ router.get('/',async function(req, res, next) {
         }
     }
     let str = JSON.stringify(resu);
-    console.log(resu.length)
-    if (resu.length>20)
-    {
-        await resu.slice(0,20)
-    }
-    console.log('______________________________________________________________________________________________')
-    console.log(resu.length)
+    console.log(resu.str)
+
     // let response = await fetch("http://172.16.49.142:3000/api/Document",{ method: 'GET', body: '{id:1}' })
     // let resu = await response.json()
     res.render('myDocs', {
