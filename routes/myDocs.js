@@ -46,10 +46,16 @@ router.get('/',async function(req, res, next) {
     }
     let str = JSON.stringify(resu);
     console.log(str)
+    let len = resu.length
+    if (resu.length>20)
+    {
+        len = 20
+    }
     // let response = await fetch("http://172.16.49.142:3000/api/Document",{ method: 'GET', body: '{id:1}' })
     // let resu = await response.json()
     res.render('myDocs', {
         docs:resu,
+        len:len,
         userid: req.session.user.UserFK,
         username: req.session.user.User.FirstName + ' ' + req.session.user.User.SecondName,
         position: req.session.user.User.Position.id,
