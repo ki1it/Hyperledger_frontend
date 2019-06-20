@@ -48,8 +48,11 @@ router.get('/',async function(req, res, next) {
     console.log(str)
     if (resu.length>20)
     {
-        resu.slice(0,20)
+        await resu.slice(0,20)
     }
+    console.log('______________________________________________________________________________________________')
+    str = JSON.stringify(resu);
+    console.log(str)
     // let response = await fetch("http://172.16.49.142:3000/api/Document",{ method: 'GET', body: '{id:1}' })
     // let resu = await response.json()
     res.render('myDocs', {
