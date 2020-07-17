@@ -19,6 +19,6 @@
     "pug": "2.0.0-beta11",
     "sequelize": "^5.8.5",
     "node-fetch": "^2.6.0",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.19"
   }
 }
